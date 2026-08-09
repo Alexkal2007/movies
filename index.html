@@ -114,17 +114,43 @@
   }
   .modal-section-title{font-size:20px; color:var(--gold); margin-bottom:14px;}
 
-  /* Cast Area Scrollable Grid */
+  /* Cast Area Scrollable Grid & Avatar Styling */
   .cast-scroll-container {
-    max-height: 260px;
+    max-height: 280px;
     overflow-y: auto;
     padding-right: 6px;
   }
   .cast-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:12px; margin-bottom:10px;}
-  .cast-item{background:var(--void); border:1px solid var(--line); padding:8px; text-align:center;}
-  .cast-item img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:50%; margin-bottom:6px;}
-  .cast-name{font-size:12px; font-weight:600; color:var(--bone); line-height:1.2;}
-  .cast-character{font-size:11px; color:var(--smoke); margin-top:2px; line-height:1.2;}
+  .cast-item{background:var(--void); border:1px solid var(--line); padding:8px; text-align:center; display:flex; flex-direction:column; align-items:center;}
+  
+  .cast-avatar-wrap {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 8px;
+    background: #1a191d;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .cast-avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .cast-avatar-wrap svg {
+    width: 36px;
+    height: 36px;
+    fill: var(--smoke);
+    opacity: 0.6;
+  }
+
+  .cast-name{font-size:12px; font-weight:600; color:var(--bone); line-height:1.2; word-break:break-word;}
+  .cast-character{font-size:11px; color:var(--smoke); margin-top:3px; line-height:1.2; word-break:break-word;}
 
   /* Video Player Container */
   .trailer-container {
@@ -203,6 +229,9 @@
   const API_KEY = '643419c13ccbd8f43fa2b9712e2dc455';
   let genres = [];
   let searchTimeout = null;
+
+  // SVG Fallback Avatar για ηθοποιούς χωρίς φωτογραφία
+  const SVG_AVATAR = `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
 
   const fallbackMovies = [
     { id: 550, title: "Fight Club", release_date: "1999-10-15", vote_average: 8.4, poster_path: "/pB8BM7PDSp6B6Ih7QZ4DrQ3PmJK.jpg", overview: "Ένας υπάλληλος γραφείου με αυπνίες γνωρίζει έναν εκκεντρικό κατασκευαστή σαπουνιών." },
@@ -371,21 +400,29 @@
     overlay.querySelector('.modal-close').addEventListener('click', () => overlay.remove());
     root.appendChild(overlay);
 
-    // 1. Fetch ALL Cast
+    // 1. Fetch ALL Cast με Fallback SVG Avatar
     fetch(`https://api.themoviedb.org/3/movie/${m.id}/credits?api_key=${API_KEY}&language=el`)
       .then(r => r.json())
       .then(data => {
         const castArea = document.getElementById('castArea');
-        const cast = data.cast || []; // Παίρνει ΟΛΟΥΣ τους ηθοποιούς
+        const cast = data.cast || [];
 
         if(cast.length > 0) {
-          castArea.innerHTML = cast.map(actor => `
-            <div class="cast-item">
-              <img src="${actor.profile_path ? IMG + actor.profile_path : 'https://via.placeholder.com/100x100?text=?'}" alt="${escapeHtml(actor.name)}">
-              <div class="cast-name">${escapeHtml(actor.name)}</div>
-              <div class="cast-character">${escapeHtml(actor.character)}</div>
-            </div>
-          `).join('');
+          castArea.innerHTML = cast.map(actor => {
+            const photoHtml = actor.profile_path 
+              ? `<img src="${IMG + actor.profile_path}" alt="${escapeHtml(actor.name)}" onerror="this.onerror=null; this.parentElement.innerHTML='${SVG_AVATAR.replace(/'/g, "\\'")}';">`
+              : SVG_AVATAR;
+
+            return `
+              <div class="cast-item">
+                <div class="cast-avatar-wrap">
+                  ${photoHtml}
+                </div>
+                <div class="cast-name">${escapeHtml(actor.name)}</div>
+                <div class="cast-character">${escapeHtml(actor.character)}</div>
+              </div>
+            `;
+          }).join('');
         } else {
           castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">Δεν βρέθηκαν πληροφορίες ηθοποιών.</div>`;
         }
