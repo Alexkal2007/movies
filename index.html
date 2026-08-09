@@ -34,7 +34,6 @@
     background-repeat: repeat-x;
     background-color: var(--gold-dim);
   }
-  .filmstrip.top{transform: rotate(180deg);}
 
   header{position:sticky; top:0; z-index:50; background:rgba(11,11,13,0.92); backdrop-filter: blur(8px); border-bottom:1px solid var(--line);}
   .nav-inner{max-width:1200px; margin:0 auto; padding:18px 28px; display:flex; align-items:center; justify-content:space-between; gap:20px;}
@@ -93,6 +92,7 @@
   .spinner{width:26px; height:26px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
+  /* Modal & Video Player */
   .overlay{position:fixed; inset:0; background:rgba(11,11,13,0.85); backdrop-filter: blur(4px); z-index:100; display:flex; align-items:flex-start; justify-content:center; overflow-y:auto; padding:40px 20px;}
   .modal{background:var(--void-2); max-width:840px; width:100%; border:1px solid var(--line); position:relative; animation:rise .25s ease;}
   @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
@@ -104,10 +104,25 @@
   .modal-info h2{font-size:36px; line-height:1;}
   .modal-meta{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0; font-size:13px; color:var(--smoke);}
   .modal-meta b{color:var(--gold);}
-  .modal-tagline{font-style:italic; color:var(--wine-bright); font-size:14px; margin-bottom:12px;}
-  .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9;}
-  .modal-genres{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
-  .modal-genres span{border:1px solid var(--line); font-size:11px; padding:4px 10px; color:var(--smoke); letter-spacing:0.04em;}
+  .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 20px;}
+
+  .trailer-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    margin-top: 15px;
+    border: 1px solid var(--line);
+    background: #000;
+  }
+  .trailer-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
 
   footer{border-top:1px solid var(--line); padding:30px 28px; text-align:center; color:var(--smoke); font-size:12px;}
 
@@ -189,7 +204,6 @@
         loadTrending();
       })
       .catch(() => {
-        // Αν αποτύχει το API, φόρτωσε τα fallback δεδομένα!
         loadFallback();
       });
   }
@@ -298,6 +312,7 @@
     overlay.className = 'overlay';
     overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.remove(); });
     const year = (m.release_date || '').slice(0,4) || '—';
+
     overlay.innerHTML = `
       <div class="modal">
         <button class="modal-close" aria-label="Κλείσιμο">✕</button>
@@ -310,12 +325,47 @@
               <span>${year}</span>
             </div>
             <p class="modal-overview">${escapeHtml(m.overview) || 'Δεν υπάρχει διαθέσιμη περίληψη.'}</p>
+            
+            <h3 style="font-size: 20px; color: var(--gold); margin-top: 10px;">ΕΠΙΣΗΜΟ TRAILER</h3>
+            <div id="trailerArea" class="trailer-container">
+              <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke);">Φόρτωση Trailer...</div>
+            </div>
+
           </div>
         </div>
       </div>
     `;
+
     overlay.querySelector('.modal-close').addEventListener('click', () => overlay.remove());
     root.appendChild(overlay);
+
+    // Ζήτα το trailer από το TMDB API
+    fetch(`https://api.themoviedb.org/3/movie/${m.id}/videos?api_key=${API_KEY}`)
+      .then(r => r.json())
+      .then(data => {
+        const trailerArea = document.getElementById('trailerArea');
+        const videos = data.results || [];
+        // Βρες βίντεο τύπου Trailer από το YouTube
+        const trailer = videos.find(v => v.site === 'YouTube' && v.type === 'Trailer') || videos[0];
+
+        if(trailer && trailer.key) {
+          trailerArea.innerHTML = `
+            <iframe 
+              src="https://www.youtube-nocookie.com/embed/${trailer.key}" 
+              title="Official Trailer" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+            </iframe>`;
+        } else {
+          trailerArea.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke);">Δεν βρέθηκε διαθέσιμο trailer.</div>`;
+        }
+      })
+      .catch(() => {
+        const trailerArea = document.getElementById('trailerArea');
+        if(trailerArea) {
+          trailerArea.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke);">Αδυναμία φόρτωσης trailer.</div>`;
+        }
+      });
   }
 
   document.addEventListener('keydown', (e) => {
