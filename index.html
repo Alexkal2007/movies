@@ -19,11 +19,16 @@
     --line: rgba(237,234,225,0.12);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{background:var(--void); color:var(--bone); font-family:'Work Sans', sans-serif; scroll-behavior:smooth;}
+  html,body{
+    background:var(--void); 
+    color:var(--bone); 
+    font-family:'Work Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+    scroll-behavior:smooth;
+  }
   ::selection{background:var(--gold); color:var(--void);}
-  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-track{background:var(--void);}
-  ::-webkit-scrollbar-thumb{background:var(--wine); border-radius:0;}
+  ::-webkit-scrollbar-thumb{background:var(--wine); border-radius:4px;}
 
   h1,h2,h3,.display{font-family:'Bebas Neue', sans-serif; letter-spacing:0.04em; font-weight:400;}
 
@@ -42,7 +47,7 @@
   .navsearch{flex:1; max-width:420px; position:relative;}
   .navsearch input{
     width:100%; background:var(--void-2); border:1px solid var(--line); color:var(--bone);
-    padding:10px 14px 10px 38px; font-family:'Work Sans'; font-size:14px; outline:none; transition:border-color .2s;
+    padding:10px 14px 10px 38px; font-family:'Work Sans', sans-serif; font-size:14px; outline:none; transition:border-color .2s;
   }
   .navsearch input:focus{border-color:var(--gold);}
   .navsearch svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:0.5;}
@@ -63,7 +68,7 @@
   .genre-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px;}
   .chip{
     border:1px solid var(--line); background:transparent; color:var(--smoke); font-size:13px;
-    padding:7px 14px; cursor:pointer; font-family:'Work Sans'; transition:.15s;
+    padding:7px 14px; cursor:pointer; font-family:'Work Sans', sans-serif; transition:.15s;
   }
   .chip:hover{border-color:var(--gold); color:var(--bone);}
   .chip.active{background:var(--gold); border-color:var(--gold); color:var(--void); font-weight:600;}
@@ -77,7 +82,7 @@
   .poster-fallback{display:flex; align-items:center; justify-content:center; height:100%; color:var(--smoke); font-family:'Bebas Neue'; font-size:22px; text-align:center; padding:10px;}
   .rating-badge{
     position:absolute; top:8px; right:8px; background:var(--void); border:1px solid var(--gold);
-    color:var(--gold); font-size:12px; font-weight:700; padding:3px 7px; font-family:'Work Sans';
+    color:var(--gold); font-size:12px; font-weight:700; padding:3px 7px; font-family:'Work Sans', sans-serif;
   }
   .card-hover-info{
     position:absolute; inset:0; display:flex; align-items:flex-end; padding:14px; opacity:0; transition:opacity .3s;
@@ -94,7 +99,7 @@
 
   /* Modal & Video Player & Cast */
   .overlay{position:fixed; inset:0; background:rgba(11,11,13,0.85); backdrop-filter: blur(4px); z-index:100; display:flex; align-items:flex-start; justify-content:center; overflow-y:auto; padding:40px 20px;}
-  .modal{background:var(--void-2); max-width:840px; width:100%; border:1px solid var(--line); position:relative; animation:rise .25s ease;}
+  .modal{background:var(--void-2); max-width:860px; width:100%; border:1px solid var(--line); position:relative; animation:rise .25s ease;}
   @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
   .modal-close{position:absolute; top:14px; right:14px; background:var(--void); border:1px solid var(--line); color:var(--bone); width:32px; height:32px; cursor:pointer; font-size:16px; z-index:5;}
   .modal-close:hover{border-color:var(--gold); color:var(--gold);}
@@ -106,25 +111,86 @@
   .modal-meta b{color:var(--gold);}
   .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 24px;}
 
-  /* Ενότητες Modal & Spacing */
   .modal-section{
     margin-top:28px;
     padding-top:20px;
     border-top:1px solid var(--line);
   }
-  .modal-section-title{font-size:20px; color:var(--gold); margin-bottom:14px;}
+  .modal-section-title{font-size:20px; color:var(--gold); margin-bottom:16px;}
 
-  /* Cast List Styling */
-  .cast-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:12px; margin-bottom:10px;}
-  .cast-item{background:var(--void); border:1px solid var(--line); padding:8px; text-align:center;}
-  .cast-item img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:50%; margin-bottom:6px;}
-  .cast-name{font-size:12px; font-weight:600; color:var(--bone); line-height:1.2;}
-  .cast-character{font-size:11px; color:var(--smoke); margin-top:2px; line-height:1.2;}
+  /* Cast Area Grid & Avatar Styling */
+  .cast-scroll-container {
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 8px 12px 12px 4px;
+  }
+  .cast-grid{
+    display:grid; 
+    grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); 
+    gap: 18px 14px; 
+  }
+  .cast-item{
+    background: var(--void); 
+    border: 1px solid var(--line); 
+    padding: 12px 8px; 
+    text-align: center; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .cast-avatar-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background: #1a191d;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .cast-avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .cast-avatar-wrap svg {
+    width: 38px;
+    height: 38px;
+    fill: var(--smoke);
+    opacity: 0.6;
+  }
 
-  /* Video Player Container */
+  .cast-name{
+    font-size: 12px; 
+    font-weight: 600; 
+    color: var(--bone); 
+    line-height: 1.3;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cast-character{
+    font-size: 11px; 
+    color: var(--smoke); 
+    margin-top: 3px; 
+    line-height: 1.3;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .trailer-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     margin-top: 12px;
@@ -198,6 +264,8 @@
   const API_KEY = '643419c13ccbd8f43fa2b9712e2dc455';
   let genres = [];
   let searchTimeout = null;
+
+  const SVG_AVATAR = `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
 
   const fallbackMovies = [
     { id: 550, title: "Fight Club", release_date: "1999-10-15", vote_average: 8.4, poster_path: "/pB8BM7PDSp6B6Ih7QZ4DrQ3PmJK.jpg", overview: "Ένας υπάλληλος γραφείου με αυπνίες γνωρίζει έναν εκκεντρικό κατασκευαστή σαπουνιών." },
@@ -317,8 +385,9 @@
   }
 
   function escapeHtml(s){
+    if(!s) return '—';
     const d = document.createElement('div');
-    d.textContent = s || '';
+    d.textContent = s;
     return d.innerHTML;
   }
 
@@ -344,8 +413,10 @@
             
             <div class="modal-section">
               <h3 class="modal-section-title">ΗΘΟΠΟΙΟΙ / CAST</h3>
-              <div id="castArea" class="cast-grid">
-                <div style="color:var(--smoke); font-size:13px;">Φόρτωση ηθοποιών...</div>
+              <div class="cast-scroll-container">
+                <div id="castArea" class="cast-grid">
+                  <div style="color:var(--smoke); font-size:13px;">Φόρτωση ηθοποιών...</div>
+                </div>
               </div>
             </div>
 
@@ -364,21 +435,33 @@
     overlay.querySelector('.modal-close').addEventListener('click', () => overlay.remove());
     root.appendChild(overlay);
 
-    // 1. Fetch Cast
+    // Fetch Cast 
     fetch(`https://api.themoviedb.org/3/movie/${m.id}/credits?api_key=${API_KEY}&language=el`)
       .then(r => r.json())
       .then(data => {
         const castArea = document.getElementById('castArea');
-        const cast = (data.cast || []).slice(0, 5);
+        const cast = data.cast || [];
 
         if(cast.length > 0) {
-          castArea.innerHTML = cast.map(actor => `
-            <div class="cast-item">
-              <img src="${actor.profile_path ? IMG + actor.profile_path : 'https://via.placeholder.com/100x100?text=?'}" alt="${escapeHtml(actor.name)}">
-              <div class="cast-name">${escapeHtml(actor.name)}</div>
-              <div class="cast-character">${escapeHtml(actor.character)}</div>
-            </div>
-          `).join('');
+          castArea.innerHTML = cast.map(actor => {
+            const hasPhoto = !!actor.profile_path;
+            const photoUrl = hasPhoto ? IMG + actor.profile_path : '';
+            const name = escapeHtml(actor.name);
+            const character = escapeHtml(actor.character);
+
+            return `
+              <div class="cast-item">
+                <div class="cast-avatar-wrap">
+                  ${hasPhoto 
+                    ? `<img src="${photoUrl}" alt="${name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                       <div style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">${SVG_AVATAR}</div>` 
+                    : SVG_AVATAR}
+                </div>
+                <div class="cast-name" title="${name}">${name}</div>
+                <div class="cast-character" title="${character}">${character}</div>
+              </div>
+            `;
+          }).join('');
         } else {
           castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">Δεν βρέθηκαν πληροφορίες ηθοποιών.</div>`;
         }
@@ -388,7 +471,7 @@
         if(castArea) castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">Αδυναμία φόρτωσης ηθοποιών.</div>`;
       });
 
-    // 2. Fetch Trailer
+    // Fetch Trailer
     fetch(`https://api.themoviedb.org/3/movie/${m.id}/videos?api_key=${API_KEY}`)
       .then(r => r.json())
       .then(data => {
