@@ -107,8 +107,9 @@
   .modal-hero img{width:100%; height:100%; object-fit:cover; display:block; border-right:1px solid var(--line);}
   .modal-info{padding:28px 30px;}
   .modal-info h2{font-size:36px; line-height:1;}
-  .modal-meta{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0; font-size:13px; color:var(--smoke);}
+  .modal-meta{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0; font-size:13px; color:var(--smoke); align-items:center;}
   .modal-meta b{color:var(--gold);}
+  .modal-meta .runtime-badge{background:var(--void); border:1px solid var(--line); padding:2px 8px; border-radius:4px; color:var(--bone);}
   .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 24px;}
 
   .modal-section{
@@ -234,7 +235,7 @@
   <div class="hero-inner">
     <div class="eyebrow">ΟΔΗΓΟΣ ΤΑΙΝΙΩΝ</div>
     <h1 class="marquee-title">ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em></h1>
-    <p class="hero-sub"><p class="hero-sub">Ανακάλυψε την επόμενη ταινία σου — ενημερώσου για τη διάρκεια, τσέκαρε τις βαθμολογίες, δες το trailer και γνώρισε τους ηθοποιούς.</p>
+    <p class="hero-sub">Ανακάλυψε την επόμενη ταινία σου — ενημερώσου για τη διάρκεια, τσέκαρε τις βαθμολογίες, δες το trailer και γνώρισε τους ηθοποιούς.</p>
   </div>
 </section>
 
@@ -391,6 +392,16 @@
     return d.innerHTML;
   }
 
+  function formatRuntime(minutes) {
+    if(!minutes) return '';
+    const hrs = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    if(hrs > 0) {
+      return `${hrs}ω ${mins}λ`;
+    }
+    return `${mins}λ`;
+  }
+
   function openModal(m){
     const root = $('modalRoot');
     const overlay = document.createElement('div');
@@ -407,7 +418,9 @@
             <h2>${escapeHtml(m.title)}</h2>
             <div class="modal-meta">
               <span><b>★ ${m.vote_average ? m.vote_average.toFixed(1) : '—'}</b></span>
+              <span>•</span>
               <span>${year}</span>
+              <span id="runtimeSpan"></span>
             </div>
             <p class="modal-overview">${escapeHtml(m.overview) || 'Δεν υπάρχει διαθέσιμη περίληψη.'}</p>
             
@@ -434,6 +447,17 @@
 
     overlay.querySelector('.modal-close').addEventListener('click', () => overlay.remove());
     root.appendChild(overlay);
+
+    // Fetch Details (Για τη διάρκεια της ταινίας)
+    fetch(`https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}&language=el`)
+      .then(r => r.json())
+      .then(data => {
+        const runtimeSpan = document.getElementById('runtimeSpan');
+        if(runtimeSpan && data.runtime) {
+          runtimeSpan.innerHTML = `• <span class="runtime-badge">⏱ ${formatRuntime(data.runtime)}</span>`;
+        }
+      })
+      .catch(() => {});
 
     // Fetch Cast 
     fetch(`https://api.themoviedb.org/3/movie/${m.id}/credits?api_key=${API_KEY}&language=el`)
