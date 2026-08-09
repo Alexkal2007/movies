@@ -233,12 +233,12 @@
 </main>
 
 <footer>
- <div id="footerTxt">CINEMA GUIDE — movie discovery demo. Powered by TMDB.</div>
-  <div class="footer-links">
-    <a href="#" id="linkPrivacy">Privacy Policy</a> • 
-    <a href="#" id="linkTerms">Terms of Service</a> • 
-    <a href="#" id="linkAbout">About & Contact</a>
-  </div>
+<div id="footerTxt">CINEMA GUIDE — movie discovery demo. Powered by TMDB.</div>
+<div class="footer-links">
+  <a href="javascript:void(0)" id="linkPrivacy">Privacy Policy</a> • 
+  <a href="javascript:void(0)" id="linkTerms">Terms of Service</a> • 
+  <a href="javascript:void(0)" id="linkAbout">About & Contact</a>
+</div>
 </footer>
 
 <div id="modalRoot"></div>
@@ -653,6 +653,55 @@
     }
   });
 })();
+ function openInfoModal(titleKey, textKey) {
+  const existingOverlay = document.querySelector('.info-modal-overlay');
+  if (existingOverlay) existingOverlay.remove();
+
+  const overlay = document.createElement('div');
+  overlay.className = 'info-modal-overlay';
+  
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+  overlay.style.zIndex = '9999';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.padding = '20px';
+  overlay.style.backdropFilter = 'blur(5px)';
+
+  const title = i18n[currentLang][titleKey];
+  const text = i18n[currentLang][textKey];
+
+  overlay.innerHTML = `
+    <div style="background: #141414; border: 1px solid #333; border-radius: 12px; padding: 30px; max-width: 550px; width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.8); color: #fff;">
+      <button id="closeInfoModal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #888; font-size: 22px; cursor: pointer;">✕</button>
+      <h2 style="color: #e5a93c; margin-top: 0; margin-bottom: 15px; font-size: 24px;">${title}</h2>
+      <div style="font-size: 15px; line-height: 1.6; color: #ccc;">${text}</div>
+    </div>
+  `;
+
+  overlay.querySelector('#closeInfoModal').addEventListener('click', () => overlay.remove());
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+
+  document.body.appendChild(overlay);
+}
+
+// Σύνδεση των κουμπιών
+document.addEventListener('DOMContentLoaded', () => {
+  const btnPrivacy = document.getElementById('linkPrivacy');
+  const btnTerms = document.getElementById('linkTerms');
+  const btnAbout = document.getElementById('linkAbout');
+
+  if (btnPrivacy) btnPrivacy.onclick = () => openInfoModal('privacyTitle', 'privacyText');
+  if (btnTerms) btnTerms.onclick = () => openInfoModal('termsTitle', 'termsText');
+  if (btnAbout) btnAbout.onclick = () => openInfoModal('aboutTitle', 'aboutText');
+});
 </script>
 
 </body>
