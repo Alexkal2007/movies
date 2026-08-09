@@ -2,42 +2,12 @@
 <html lang="en">
 <head>
  <link rel="icon" type="image/png" href="favicon.png">
- <link rel="sitemap" type="application/xml" title="Sitemap" href="https://cinemaguide.online/sitemap.xml" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CINEMA GUIDE — Discover Movies</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
- footer {
-  border-top: 1px solid var(--line);
-  padding: 30px 28px;
-  text-align: center;
-  color: var(--smoke);
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-}
-
-.footer-links {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.footer-links a {
-  color: var(--gold);
-  text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.2s;
-}
-
-.footer-links a:hover {
-  opacity: 0.8;
-  text-decoration: underline;
-}
   :root{
     --void:#0B0B0D;
     --void-2:#151417;
@@ -232,14 +202,7 @@
   </section>
 </main>
 
-<footer>
-<div id="footerTxt">CINEMA GUIDE — movie discovery demo. Powered by TMDB.</div>
-<div class="footer-links">
-  <a href="javascript:void(0)" onclick="openInfoModal('privacyTitle', 'privacyText'); return false;">Privacy Policy</a> • 
-  <a href="javascript:void(0)" onclick="openInfoModal('termsTitle', 'termsText'); return false;">Terms of Service</a> • 
-  <a href="javascript:void(0)" onclick="openInfoModal('aboutTitle', 'aboutText'); return false;">About & Contact</a>
-</div>
-</footer>
+<footer id="footerTxt">REEL — movie discovery demo. Powered by TMDB.</footer>
 
 <div id="modalRoot"></div>
 
@@ -257,75 +220,63 @@
 
   // Translations Object
   const i18n = {
-  en: {
-    searchPlaceholder: "Search movie...",
-    langBtnLabel: "EL",
-    eyebrow: "MOVIE GUIDE",
-    heroTitle: 'WHAT TO<br>WATCH <em>TONIGHT</em>',
-    heroSub: "Discover your next favorite film — check runtime, view ratings, watch trailers, and explore the cast.",
-    trendingTitle: "Trending Now",
-    searchResultFor: 'Results for',
-    allGenres: "All",
-    titlesCount: "titles",
-    moreInfo: "View details →",
-    loading: "Loading movies...",
-    empty: "No movies found.",
-    loadingRuntime: "Loading...",
-    noRuntime: "N/A",
-    noOverview: "No overview available.",
-    castTitle: "CAST",
-    loadingCast: "Loading cast...",
-    noCast: "No cast information available.",
-    errCast: "Failed to load cast.",
-    trailerTitle: "OFFICIAL TRAILER",
-    loadingTrailer: "Loading trailer...",
-    noTrailer: "No trailer available.",
-    errTrailer: "Failed to load trailer.",
-    footer: "CINEMAGUIDE — movie discovery. Powered by TMDB.",
-    hours: "h",
-    mins: "m",
-    privacyTitle: "Privacy Policy",
-    privacyText: "CinemaGuide is a free movie discovery tool powered by the TMDB API. We do not store personal user data or use tracking cookies. All movie information, images, and trailers belong to their respective copyright holders.",
-    termsTitle: "Terms of Service",
-    termsText: "By using CinemaGuide, you agree to use the service for personal and non-commercial movie discovery. All movie details are fetched via Third-Party API (TMDB) and CinemaGuide does not host any media files directly.",
-    aboutTitle: "About & Contact",
-    aboutText: "CinemaGuide is a web app designed to help movie lovers find what to watch tonight. For inquiries or feedback, you can reach out at <strong>contact@cinemaguide.online</strong>."
-  },
-  el: {
-    searchPlaceholder: "Αναζήτηση ταινίας...",
-    langBtnLabel: "EN",
-    eyebrow: "ΟΔΗΓΟΣ ΤΑΙΝΙΩΝ",
-    heroTitle: 'ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em>',
-    heroSub: "Ανακάλυψε την επόμενη ταινία σου — ενημερώσου για τη διάρκεια, τσέκαρε τις βαθμολογίες, δες το trailer και γνώρισε τους ηθοποιούς.",
-    trendingTitle: "Στη Πρώτη Γραμμή",
-    searchResultFor: 'Αποτελέσματα για',
-    allGenres: "Όλα",
-    titlesCount: "τίτλοι",
-    moreInfo: "Δες περισσότερα →",
-    loading: "Φορτώνει το πρόγραμμα...",
-    empty: "Καμία ταινία δεν βρέθηκε.",
-    loadingRuntime: "Φόρτωση...",
-    noRuntime: "Μη διαθέσιμη",
-    noOverview: "Δεν υπάρχει διαθέσιμη περίληψη.",
-    castTitle: "ΗΘΟΠΟΙΟΙ / CAST",
-    loadingCast: "Φόρτωση ηθοποιών...",
-    noCast: "Δεν βρέθηκαν πληροφορίες ηθοποιών.",
-    errCast: "Αδυναμία φόρτωσης ηθοποιών.",
-    trailerTitle: "ΕΠΙΣΗΜΟ TRAILER",
-    loadingTrailer: "Φόρτωση Trailer...",
-    noTrailer: "Δεν βρέθηκε διαθέσιμο trailer.",
-    errTrailer: "Αδυναμία φόρτωσης trailer.",
-    footer: "CINEMAGUIDE — ανακάλυψη ταινιών. Δεδομένα από TMDB.",
-    hours: "ω",
-    mins: "λ",
-    privacyTitle: "Πολιτική Απορρήτου",
-    privacyText: "Το CinemaGuide είναι ένα δωρεάν εργαλείο ανακάλυψης ταινιών μέσω του TMDB API. Δεν αποθηκεύουμε προσωπικά δεδομένα χρηστών ούτε χρησιμοποιούμε cookies παρακολούθησης. Όλες οι πληροφορίες, εικόνες και trailers ανήκουν στους αντίστοιχους δημιουργούς τους.",
-    termsTitle: "Όροι Χρήσης",
-    termsText: "Χρησιμοποιώντας το CinemaGuide, συμφωνείτε να χρησιμοποιείτε την υπηρεσία αποκλειστικά για προσωπική ενημέρωση. Όλα τα δεδομένα παρέχονται από τρίτη υπηρεσία (TMDB) και το CinemaGuide δεν φιλοξενεί απευθείας αρχεία βίντεο.",
-    aboutTitle: "Σχετικά & Επικοινωνία",
-    aboutText: "Το CinemaGuide δημιουργήθηκε για να βοηθάει τους λάτρεις του σινεμά να βρουν τι θα δουν απόψε. Για απορίες ή επικοινωνία, μπορείτε να στείλετε email στο <strong>contact@cinemaguide.online</strong>."
-  }
-};
+    en: {
+      searchPlaceholder: "Search movie...",
+      langBtnLabel: "EL",
+      eyebrow: "MOVIE GUIDE",
+      heroTitle: 'WHAT TO<br>WATCH <em>TONIGHT</em>',
+      heroSub: "Discover your next favorite film — check runtime, view ratings, watch trailers, and explore the cast.",
+      trendingTitle: "Trending Now",
+      searchResultFor: 'Results for',
+      allGenres: "All",
+      titlesCount: "titles",
+      moreInfo: "View details →",
+      loading: "Loading movies...",
+      empty: "No movies found.",
+      loadingRuntime: "Loading...",
+      noRuntime: "N/A",
+      noOverview: "No overview available.",
+      castTitle: "CAST",
+      loadingCast: "Loading cast...",
+      noCast: "No cast information available.",
+      errCast: "Failed to load cast.",
+      trailerTitle: "OFFICIAL TRAILER",
+      loadingTrailer: "Loading trailer...",
+      noTrailer: "No trailer available.",
+      errTrailer: "Failed to load trailer.",
+      footer: "REEL — movie discovery demo. Powered by TMDB.",
+      hours: "h",
+      mins: "m"
+    },
+    el: {
+      searchPlaceholder: "Αναζήτηση ταινίας...",
+      langBtnLabel: "EN",
+      eyebrow: "ΟΔΗΓΟΣ ΤΑΙΝΙΩΝ",
+      heroTitle: 'ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em>',
+      heroSub: "Ανακάλυψε την επόμενη ταινία σου — ενημερώσου για τη διάρκεια, τσέκαρε τις βαθμολογίες, δες το trailer και γνώρισε τους ηθοποιούς.",
+      trendingTitle: "Στη Πρώτη Γραμμή",
+      searchResultFor: 'Αποτελέσματα για',
+      allGenres: "Όλα",
+      titlesCount: "τίτλοι",
+      moreInfo: "Δες περισσότερα →",
+      loading: "Φορτώνει το πρόγραμμα...",
+      empty: "Καμία ταινία δεν βρέθηκε.",
+      loadingRuntime: "Φόρτωση...",
+      noRuntime: "Μη διαθέσιμη",
+      noOverview: "Δεν υπάρχει διαθέσιμη περίληψη.",
+      castTitle: "ΗΘΟΠΟΙΟΙ / CAST",
+      loadingCast: "Φόρτωση ηθοποιών...",
+      noCast: "Δεν βρέθηκαν πληροφορίες ηθοποιών.",
+      errCast: "Αδυναμία φόρτωσης ηθοποιών.",
+      trailerTitle: "ΕΠΙΣΗΜΟ TRAILER",
+      loadingTrailer: "Φόρτωση Trailer...",
+      noTrailer: "Δεν βρέθηκε διαθέσιμο trailer.",
+      errTrailer: "Αδυναμία φόρτωσης trailer.",
+      footer: "REEL — ένα demo ανακάλυψης ταινιών. Δεδομένα από TMDB.",
+      hours: "ω",
+      mins: "λ"
+    }
+  };
 
   const $ = (id) => document.getElementById(id);
 
@@ -646,44 +597,13 @@
       });
   }
 
-  function openInfoModal(titleKey, textKey) {
-  const existingOverlay = document.querySelector('.info-modal-overlay');
-  if (existingOverlay) existingOverlay.remove();
-
-  const overlay = document.createElement('div');
-  overlay.className = 'info-modal-overlay';
-  
-  overlay.style.position = 'fixed';
-  overlay.style.top = '0';
-  overlay.style.left = '0';
-  overlay.style.width = '100%';
-  overlay.style.height = '100%';
-  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
-  overlay.style.zIndex = '9999';
-  overlay.style.display = 'flex';
-  overlay.style.alignItems = 'center';
-  overlay.style.justifyContent = 'center';
-  overlay.style.padding = '20px';
-  overlay.style.backdropFilter = 'blur(5px)';
-
-  // Ανάλυση κειμένων από το i18n
-  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
-  const title = (i18n && i18n[lang] && i18n[lang][titleKey]) ? i18n[lang][titleKey] : titleKey;
-  const text = (i18n && i18n[lang] && i18n[lang][textKey]) ? i18n[lang][textKey] : textKey;
-
-  overlay.innerHTML = `
-    <div style="background: #141414; border: 1px solid #333; border-radius: 12px; padding: 30px; max-width: 550px; width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.8); color: #fff;">
-      <button id="closeInfoModal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #888; font-size: 22px; cursor: pointer;">✕</button>
-      <h2 style="color: #e5a93c; margin-top: 0; margin-bottom: 15px; font-size: 24px;">${title}</h2>
-      <div style="font-size: 15px; line-height: 1.6; color: #ccc;">${text}</div>
-    </div>
-  `;
-
-  overlay.querySelector('#closeInfoModal').onclick = () => overlay.remove();
-  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
-
-  document.body.appendChild(overlay);
-}
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){
+      const ov = document.querySelector('.overlay');
+      if(ov) ov.remove();
+    }
+  });
+})();
 </script>
 
 </body>
