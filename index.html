@@ -9,6 +9,35 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+ footer {
+  border-top: 1px solid var(--line);
+  padding: 30px 28px;
+  text-align: center;
+  color: var(--smoke);
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer-links a {
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.footer-links a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
   :root{
     --void:#0B0B0D;
     --void-2:#151417;
@@ -203,7 +232,14 @@
   </section>
 </main>
 
-<footer id="footerTxt">REEL — movie discovery demo. Powered by TMDB.</footer>
+<footer>
+ <div id="footerTxt">CINEMA GUIDE — movie discovery demo. Powered by TMDB.</div>
+  <div class="footer-links">
+    <a href="#" id="linkPrivacy">Privacy Policy</a> • 
+    <a href="#" id="linkTerms">Terms of Service</a> • 
+    <a href="#" id="linkAbout">About & Contact</a>
+  </div>
+</footer>
 
 <div id="modalRoot"></div>
 
@@ -221,63 +257,75 @@
 
   // Translations Object
   const i18n = {
-    en: {
-      searchPlaceholder: "Search movie...",
-      langBtnLabel: "EL",
-      eyebrow: "MOVIE GUIDE",
-      heroTitle: 'WHAT TO<br>WATCH <em>TONIGHT</em>',
-      heroSub: "Discover your next favorite film — check runtime, view ratings, watch trailers, and explore the cast.",
-      trendingTitle: "Trending Now",
-      searchResultFor: 'Results for',
-      allGenres: "All",
-      titlesCount: "titles",
-      moreInfo: "View details →",
-      loading: "Loading movies...",
-      empty: "No movies found.",
-      loadingRuntime: "Loading...",
-      noRuntime: "N/A",
-      noOverview: "No overview available.",
-      castTitle: "CAST",
-      loadingCast: "Loading cast...",
-      noCast: "No cast information available.",
-      errCast: "Failed to load cast.",
-      trailerTitle: "OFFICIAL TRAILER",
-      loadingTrailer: "Loading trailer...",
-      noTrailer: "No trailer available.",
-      errTrailer: "Failed to load trailer.",
-      footer: "REEL — movie discovery demo. Powered by TMDB.",
-      hours: "h",
-      mins: "m"
-    },
-    el: {
-      searchPlaceholder: "Αναζήτηση ταινίας...",
-      langBtnLabel: "EN",
-      eyebrow: "ΟΔΗΓΟΣ ΤΑΙΝΙΩΝ",
-      heroTitle: 'ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em>',
-      heroSub: "Ανακάλυψε την επόμενη ταινία σου — ενημερώσου για τη διάρκεια, τσέκαρε τις βαθμολογίες, δες το trailer και γνώρισε τους ηθοποιούς.",
-      trendingTitle: "Στη Πρώτη Γραμμή",
-      searchResultFor: 'Αποτελέσματα για',
-      allGenres: "Όλα",
-      titlesCount: "τίτλοι",
-      moreInfo: "Δες περισσότερα →",
-      loading: "Φορτώνει το πρόγραμμα...",
-      empty: "Καμία ταινία δεν βρέθηκε.",
-      loadingRuntime: "Φόρτωση...",
-      noRuntime: "Μη διαθέσιμη",
-      noOverview: "Δεν υπάρχει διαθέσιμη περίληψη.",
-      castTitle: "ΗΘΟΠΟΙΟΙ / CAST",
-      loadingCast: "Φόρτωση ηθοποιών...",
-      noCast: "Δεν βρέθηκαν πληροφορίες ηθοποιών.",
-      errCast: "Αδυναμία φόρτωσης ηθοποιών.",
-      trailerTitle: "ΕΠΙΣΗΜΟ TRAILER",
-      loadingTrailer: "Φόρτωση Trailer...",
-      noTrailer: "Δεν βρέθηκε διαθέσιμο trailer.",
-      errTrailer: "Αδυναμία φόρτωσης trailer.",
-      footer: "REEL — ένα demo ανακάλυψης ταινιών. Δεδομένα από TMDB.",
-      hours: "ω",
-      mins: "λ"
-    }
-  };
+  en: {
+    searchPlaceholder: "Search movie...",
+    langBtnLabel: "EL",
+    eyebrow: "MOVIE GUIDE",
+    heroTitle: 'WHAT TO<br>WATCH <em>TONIGHT</em>',
+    heroSub: "Discover your next favorite film — check runtime, view ratings, watch trailers, and explore the cast.",
+    trendingTitle: "Trending Now",
+    searchResultFor: 'Results for',
+    allGenres: "All",
+    titlesCount: "titles",
+    moreInfo: "View details →",
+    loading: "Loading movies...",
+    empty: "No movies found.",
+    loadingRuntime: "Loading...",
+    noRuntime: "N/A",
+    noOverview: "No overview available.",
+    castTitle: "CAST",
+    loadingCast: "Loading cast...",
+    noCast: "No cast information available.",
+    errCast: "Failed to load cast.",
+    trailerTitle: "OFFICIAL TRAILER",
+    loadingTrailer: "Loading trailer...",
+    noTrailer: "No trailer available.",
+    errTrailer: "Failed to load trailer.",
+    footer: "CINEMAGUIDE — movie discovery. Powered by TMDB.",
+    hours: "h",
+    mins: "m",
+    privacyTitle: "Privacy Policy",
+    privacyText: "CinemaGuide is a free movie discovery tool powered by the TMDB API. We do not store personal user data or use tracking cookies. All movie information, images, and trailers belong to their respective copyright holders.",
+    termsTitle: "Terms of Service",
+    termsText: "By using CinemaGuide, you agree to use the service for personal and non-commercial movie discovery. All movie details are fetched via Third-Party API (TMDB) and CinemaGuide does not host any media files directly.",
+    aboutTitle: "About & Contact",
+    aboutText: "CinemaGuide is a web app designed to help movie lovers find what to watch tonight. For inquiries or feedback, you can reach out at <strong>contact@cinemaguide.online</strong>."
+  },
+  el: {
+    searchPlaceholder: "Αναζήτηση ταινίας...",
+    langBtnLabel: "EN",
+    eyebrow: "ΟΔΗΓΟΣ ΤΑΙΝΙΩΝ",
+    heroTitle: 'ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em>',
+    heroSub: "Ανακάλυψε την επόμενη ταινία σου — ενημερώσου για τη διάρκεια, τσέκαρε τις βαθμολογίες, δες το trailer και γνώρισε τους ηθοποιούς.",
+    trendingTitle: "Στη Πρώτη Γραμμή",
+    searchResultFor: 'Αποτελέσματα για',
+    allGenres: "Όλα",
+    titlesCount: "τίτλοι",
+    moreInfo: "Δες περισσότερα →",
+    loading: "Φορτώνει το πρόγραμμα...",
+    empty: "Καμία ταινία δεν βρέθηκε.",
+    loadingRuntime: "Φόρτωση...",
+    noRuntime: "Μη διαθέσιμη",
+    noOverview: "Δεν υπάρχει διαθέσιμη περίληψη.",
+    castTitle: "ΗΘΟΠΟΙΟΙ / CAST",
+    loadingCast: "Φόρτωση ηθοποιών...",
+    noCast: "Δεν βρέθηκαν πληροφορίες ηθοποιών.",
+    errCast: "Αδυναμία φόρτωσης ηθοποιών.",
+    trailerTitle: "ΕΠΙΣΗΜΟ TRAILER",
+    loadingTrailer: "Φόρτωση Trailer...",
+    noTrailer: "Δεν βρέθηκε διαθέσιμο trailer.",
+    errTrailer: "Αδυναμία φόρτωσης trailer.",
+    footer: "CINEMAGUIDE — ανακάλυψη ταινιών. Δεδομένα από TMDB.",
+    hours: "ω",
+    mins: "λ",
+    privacyTitle: "Πολιτική Απορρήτου",
+    privacyText: "Το CinemaGuide είναι ένα δωρεάν εργαλείο ανακάλυψης ταινιών μέσω του TMDB API. Δεν αποθηκεύουμε προσωπικά δεδομένα χρηστών ούτε χρησιμοποιούμε cookies παρακολούθησης. Όλες οι πληροφορίες, εικόνες και trailers ανήκουν στους αντίστοιχους δημιουργούς τους.",
+    termsTitle: "Όροι Χρήσης",
+    termsText: "Χρησιμοποιώντας το CinemaGuide, συμφωνείτε να χρησιμοποιείτε την υπηρεσία αποκλειστικά για προσωπική ενημέρωση. Όλα τα δεδομένα παρέχονται από τρίτη υπηρεσία (TMDB) και το CinemaGuide δεν φιλοξενεί απευθείας αρχεία βίντεο.",
+    aboutTitle: "Σχετικά & Επικοινωνία",
+    aboutText: "Το CinemaGuide δημιουργήθηκε για να βοηθάει τους λάτρεις του σινεμά να βρουν τι θα δουν απόψε. Για απορίες ή επικοινωνία, μπορείτε να στείλετε email στο <strong>contact@cinemaguide.online</strong>."
+  }
+};
 
   const $ = (id) => document.getElementById(id);
 
