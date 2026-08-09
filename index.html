@@ -235,9 +235,9 @@
 <footer>
 <div id="footerTxt">CINEMA GUIDE — movie discovery demo. Powered by TMDB.</div>
 <div class="footer-links">
-  <a href="javascript:void(0)" id="linkPrivacy">Privacy Policy</a> • 
-  <a href="javascript:void(0)" id="linkTerms">Terms of Service</a> • 
-  <a href="javascript:void(0)" id="linkAbout">About & Contact</a>
+  <a href="javascript:void(0)" onclick="openInfoModal('privacyTitle', 'privacyText'); return false;">Privacy Policy</a> • 
+  <a href="javascript:void(0)" onclick="openInfoModal('termsTitle', 'termsText'); return false;">Terms of Service</a> • 
+  <a href="javascript:void(0)" onclick="openInfoModal('aboutTitle', 'aboutText'); return false;">About & Contact</a>
 </div>
 </footer>
 
@@ -646,14 +646,7 @@
       });
   }
 
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape'){
-      const ov = document.querySelector('.overlay');
-      if(ov) ov.remove();
-    }
-  });
-})();
- function openInfoModal(titleKey, textKey) {
+  function openInfoModal(titleKey, textKey) {
   const existingOverlay = document.querySelector('.info-modal-overlay');
   if (existingOverlay) existingOverlay.remove();
 
@@ -673,8 +666,10 @@
   overlay.style.padding = '20px';
   overlay.style.backdropFilter = 'blur(5px)';
 
-  const title = i18n[currentLang][titleKey];
-  const text = i18n[currentLang][textKey];
+  // Ανάλυση κειμένων από το i18n
+  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'en';
+  const title = (i18n && i18n[lang] && i18n[lang][titleKey]) ? i18n[lang][titleKey] : titleKey;
+  const text = (i18n && i18n[lang] && i18n[lang][textKey]) ? i18n[lang][textKey] : textKey;
 
   overlay.innerHTML = `
     <div style="background: #141414; border: 1px solid #333; border-radius: 12px; padding: 30px; max-width: 550px; width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.8); color: #fff;">
@@ -684,24 +679,11 @@
     </div>
   `;
 
-  overlay.querySelector('#closeInfoModal').addEventListener('click', () => overlay.remove());
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) overlay.remove();
-  });
+  overlay.querySelector('#closeInfoModal').onclick = () => overlay.remove();
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
 
   document.body.appendChild(overlay);
 }
-
-// Σύνδεση των κουμπιών
-document.addEventListener('DOMContentLoaded', () => {
-  const btnPrivacy = document.getElementById('linkPrivacy');
-  const btnTerms = document.getElementById('linkTerms');
-  const btnAbout = document.getElementById('linkAbout');
-
-  if (btnPrivacy) btnPrivacy.onclick = () => openInfoModal('privacyTitle', 'privacyText');
-  if (btnTerms) btnTerms.onclick = () => openInfoModal('termsTitle', 'termsText');
-  if (btnAbout) btnAbout.onclick = () => openInfoModal('aboutTitle', 'aboutText');
-});
 </script>
 
 </body>
