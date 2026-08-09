@@ -21,9 +21,9 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{background:var(--void); color:var(--bone); font-family:'Work Sans', sans-serif; scroll-behavior:smooth;}
   ::selection{background:var(--gold); color:var(--void);}
-  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar{width:8px;}
   ::-webkit-scrollbar-track{background:var(--void);}
-  ::-webkit-scrollbar-thumb{background:var(--wine); border-radius:0;}
+  ::-webkit-scrollbar-thumb{background:var(--wine); border-radius:4px;}
 
   h1,h2,h3,.display{font-family:'Bebas Neue', sans-serif; letter-spacing:0.04em; font-weight:400;}
 
@@ -104,23 +104,35 @@
   .modal-info h2{font-size:36px; line-height:1;}
   .modal-meta{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0; font-size:13px; color:var(--smoke);}
   .modal-meta b{color:var(--gold);}
-  .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 20px;}
+  .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 24px;}
 
-  .modal-section-title{font-size:20px; color:var(--gold); margin-top:20px; margin-bottom:10px;}
+  /* Ενότητες Modal & Spacing */
+  .modal-section{
+    margin-top:28px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+  }
+  .modal-section-title{font-size:20px; color:var(--gold); margin-bottom:14px;}
 
-  /* Cast List Styling */
-  .cast-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:12px; margin-top:10px;}
+  /* Cast Area Scrollable Grid */
+  .cast-scroll-container {
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+  .cast-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:12px; margin-bottom:10px;}
   .cast-item{background:var(--void); border:1px solid var(--line); padding:8px; text-align:center;}
   .cast-item img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:50%; margin-bottom:6px;}
   .cast-name{font-size:12px; font-weight:600; color:var(--bone); line-height:1.2;}
   .cast-character{font-size:11px; color:var(--smoke); margin-top:2px; line-height:1.2;}
 
+  /* Video Player Container */
   .trailer-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
-    margin-top: 10px;
+    margin-top: 12px;
     border: 1px solid var(--line);
     background: #000;
   }
@@ -335,14 +347,20 @@
             </div>
             <p class="modal-overview">${escapeHtml(m.overview) || 'Δεν υπάρχει διαθέσιμη περίληψη.'}</p>
             
-            <h3 class="modal-section-title">ΗΘΟΠΟΙΟΙ / CAST</h3>
-            <div id="castArea" class="cast-grid">
-              <div style="color:var(--smoke); font-size:13px;">Φόρτωση ηθοποιών...</div>
+            <div class="modal-section">
+              <h3 class="modal-section-title">ΗΘΟΠΟΙΟΙ / CAST</h3>
+              <div class="cast-scroll-container">
+                <div id="castArea" class="cast-grid">
+                  <div style="color:var(--smoke); font-size:13px;">Φόρτωση ηθοποιών...</div>
+                </div>
+              </div>
             </div>
 
-            <h3 class="modal-section-title">ΕΠΙΣΗΜΟ TRAILER</h3>
-            <div id="trailerArea" class="trailer-container">
-              <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke); font-size:13px;">Φόρτωση Trailer...</div>
+            <div class="modal-section">
+              <h3 class="modal-section-title">ΕΠΙΣΗΜΟ TRAILER</h3>
+              <div id="trailerArea" class="trailer-container">
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke); font-size:13px;">Φόρτωση Trailer...</div>
+              </div>
             </div>
 
           </div>
@@ -353,12 +371,12 @@
     overlay.querySelector('.modal-close').addEventListener('click', () => overlay.remove());
     root.appendChild(overlay);
 
-    // 1. Ζήτα τους ηθοποιούς από το TMDB Credits API
+    // 1. Fetch ALL Cast
     fetch(`https://api.themoviedb.org/3/movie/${m.id}/credits?api_key=${API_KEY}&language=el`)
       .then(r => r.json())
       .then(data => {
         const castArea = document.getElementById('castArea');
-        const cast = (data.cast || []).slice(0, 5); // Παίρνουμε τους 5 πρώτους ηθοποιούς
+        const cast = data.cast || []; // Παίρνει ΟΛΟΥΣ τους ηθοποιούς
 
         if(cast.length > 0) {
           castArea.innerHTML = cast.map(actor => `
@@ -377,7 +395,7 @@
         if(castArea) castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">Αδυναμία φόρτωσης ηθοποιών.</div>`;
       });
 
-    // 2. Ζήτα το trailer από το TMDB Videos API
+    // 2. Fetch Trailer
     fetch(`https://api.themoviedb.org/3/movie/${m.id}/videos?api_key=${API_KEY}`)
       .then(r => r.json())
       .then(data => {
