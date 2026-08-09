@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="el">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>REEL — Ανακάλυψε Ταινίες</title>
+<title>REEL — Discover Movies</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -44,13 +44,35 @@
   .nav-inner{max-width:1200px; margin:0 auto; padding:18px 28px; display:flex; align-items:center; justify-content:space-between; gap:20px;}
   .logo{font-family:'Bebas Neue', sans-serif; font-size:28px; letter-spacing:0.08em; color:var(--gold); display:flex; align-items:center; gap:8px;}
   .logo span{color:var(--bone);}
-  .navsearch{flex:1; max-width:420px; position:relative;}
+  
+  .nav-controls {display:flex; align-items:center; gap:16px; flex:1; justify-content:flex-end;}
+  .navsearch{flex:1; max-width:380px; position:relative;}
   .navsearch input{
     width:100%; background:var(--void-2); border:1px solid var(--line); color:var(--bone);
     padding:10px 14px 10px 38px; font-family:'Work Sans', sans-serif; font-size:14px; outline:none; transition:border-color .2s;
   }
   .navsearch input:focus{border-color:var(--gold);}
   .navsearch svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:0.5;}
+
+  /* Language Switcher Button */
+  .lang-btn {
+    background: var(--void-2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 8px 14px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .lang-btn:hover {
+    background: var(--gold);
+    color: var(--void);
+  }
 
   .hero{position:relative; overflow:hidden; border-bottom:1px solid var(--line);}
   .hero-inner{max-width:1200px; margin:0 auto; padding:64px 28px 48px; position:relative; z-index:2;}
@@ -97,7 +119,7 @@
   .spinner{width:26px; height:26px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
-  /* Modal & Video Player & Cast */
+  /* Modal Styling */
   .overlay{position:fixed; inset:0; background:rgba(11,11,13,0.85); backdrop-filter: blur(4px); z-index:100; display:flex; align-items:flex-start; justify-content:center; overflow-y:auto; padding:40px 20px;}
   .modal{background:var(--void-2); max-width:860px; width:100%; border:1px solid var(--line); position:relative; animation:rise .25s ease;}
   @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
@@ -107,105 +129,25 @@
   .modal-hero img{width:100%; height:100%; object-fit:cover; display:block; border-right:1px solid var(--line);}
   .modal-info{padding:28px 30px;}
   .modal-info h2{font-size:36px; line-height:1;}
-  .modal-meta{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0; font-size:13px; color:var(--smoke); align-items:center;}
+  .modal-meta{display:flex; gap:12px; flex-wrap:wrap; margin:14px 0; font-size:13px; color:var(--smoke); align-items:center;}
   .modal-meta b{color:var(--gold);}
-  .modal-meta .runtime-badge{background:var(--void); border:1px solid var(--line); padding:2px 8px; border-radius:4px; color:var(--bone);}
+  .runtime-badge{background:var(--void); border:1px solid var(--gold-dim); padding:3px 8px; border-radius:4px; color:var(--bone); font-weight:500;}
   .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 24px;}
 
-  .modal-section{
-    margin-top:28px;
-    padding-top:20px;
-    border-top:1px solid var(--line);
-  }
+  .modal-section{margin-top:28px; padding-top:20px; border-top:1px solid var(--line);}
   .modal-section-title{font-size:20px; color:var(--gold); margin-bottom:16px;}
 
-  /* Cast Area Grid & Avatar Styling */
-  .cast-scroll-container {
-    max-height: 320px;
-    overflow-y: auto;
-    padding: 8px 12px 12px 4px;
-  }
-  .cast-grid{
-    display:grid; 
-    grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); 
-    gap: 18px 14px; 
-  }
-  .cast-item{
-    background: var(--void); 
-    border: 1px solid var(--line); 
-    padding: 12px 8px; 
-    text-align: center; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  
-  .cast-avatar-wrap {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 10px;
-    background: #1a191d;
-    border: 1px solid var(--line);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .cast-avatar-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .cast-avatar-wrap svg {
-    width: 38px;
-    height: 38px;
-    fill: var(--smoke);
-    opacity: 0.6;
-  }
+  .cast-scroll-container {max-height: 320px; overflow-y: auto; padding: 8px 12px 12px 4px;}
+  .cast-grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 18px 14px;}
+  .cast-item{background: var(--void); border: 1px solid var(--line); padding: 12px 8px; text-align: center; display: flex; flex-direction: column; align-items: center; border-radius: 6px; overflow: hidden;}
+  .cast-avatar-wrap {width: 72px; height: 72px; border-radius: 50%; overflow: hidden; margin-bottom: 10px; background: #1a191d; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; flex-shrink: 0;}
+  .cast-avatar-wrap img {width: 100%; height: 100%; object-fit: cover; display: block;}
+  .cast-avatar-wrap svg {width: 38px; height: 38px; fill: var(--smoke); opacity: 0.6;}
+  .cast-name{font-size: 12px; font-weight: 600; color: var(--bone); line-height: 1.3; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+  .cast-character{font-size: 11px; color: var(--smoke); margin-top: 3px; line-height: 1.3; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 
-  .cast-name{
-    font-size: 12px; 
-    font-weight: 600; 
-    color: var(--bone); 
-    line-height: 1.3;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .cast-character{
-    font-size: 11px; 
-    color: var(--smoke); 
-    margin-top: 3px; 
-    line-height: 1.3;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .trailer-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    margin-top: 12px;
-    border: 1px solid var(--line);
-    background: #000;
-  }
-  .trailer-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
+  .trailer-container {position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 12px; border: 1px solid var(--line); background: #000;}
+  .trailer-container iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;}
 
   footer{border-top:1px solid var(--line); padding:30px 28px; text-align:center; color:var(--smoke); font-size:12px;}
 
@@ -213,7 +155,8 @@
     .modal-hero{grid-template-columns:1fr;}
     .modal-hero img{max-height:280px; border-right:none; border-bottom:1px solid var(--line);}
     .nav-inner{flex-wrap:wrap;}
-    .navsearch{order:3; max-width:100%;}
+    .nav-controls{order:3; width:100%; justify-content:space-between;}
+    .navsearch{max-width:100%; flex:1;}
   }
 </style>
 </head>
@@ -222,9 +165,12 @@
 <header>
   <div class="nav-inner">
     <div class="logo">▮▮ <span>CINEMA GUIDE</span></div>
-    <div class="navsearch">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input id="navSearchInput" type="text" placeholder="Αναζήτηση ταινίας…">
+    <div class="nav-controls">
+      <div class="navsearch">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="navSearchInput" type="text" placeholder="Search movie...">
+      </div>
+      <button id="langToggleBtn" class="lang-btn">🌐 <span>EL</span></button>
     </div>
   </div>
 </header>
@@ -233,9 +179,9 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="eyebrow">ΟΔΗΓΟΣ ΤΑΙΝΙΩΝ</div>
-    <h1 class="marquee-title">ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em></h1>
-    <p class="hero-sub">Ανακάλυψε την επόμενη ταινία σου — ενημερώσου για τη διάρκεια, τσέκαρε τις βαθμολογίες, δες το trailer και γνώρισε τους ηθοποιούς.</p>
+    <div class="eyebrow" id="heroEyebrow">MOVIE GUIDE</div>
+    <h1 class="marquee-title" id="heroTitle">WHAT TO<br>WATCH <em>TONIGHT</em></h1>
+    <p class="hero-sub" id="heroSub">Discover your next favorite film — check runtime, view ratings, watch trailers, and explore the cast.</p>
   </div>
 </section>
 
@@ -246,16 +192,16 @@
     <div class="genre-row" id="genreRow"></div>
 
     <div class="section-head">
-      <h2 id="gridTitle">Στη Πρώτη Γραμμή</h2>
+      <h2 id="gridTitle">Trending Now</h2>
       <span class="num" id="gridCount"></span>
     </div>
     <div id="movieGrid" class="grid"></div>
-    <div id="loadingState" class="loading" style="display:none;"><div class="spinner"></div>Φορτώνει το πρόγραμμα…</div>
-    <div id="emptyState" class="empty" style="display:none;">Καμία ταινία δεν βρέθηκε.</div>
+    <div id="loadingState" class="loading" style="display:none;"><div class="spinner"></div><span id="loadingTxt">Loading movies...</span></div>
+    <div id="emptyState" class="empty" style="display:none;" id="emptyTxt">No movies found.</div>
   </section>
 </main>
 
-<footer>REEL — ένα demo ανακάλυψης ταινιών. Δεδομένα από TMDB.</footer>
+<footer id="footerTxt">REEL — movie discovery demo. Powered by TMDB.</footer>
 
 <div id="modalRoot"></div>
 
@@ -263,47 +209,144 @@
 (function(){
   const IMG = 'https://image.tmdb.org/t/p/w500';
   const API_KEY = '643419c13ccbd8f43fa2b9712e2dc455';
+  
+  let currentLang = 'en'; // 'en' or 'el'
   let genres = [];
   let searchTimeout = null;
+  let activeGenre = null;
 
   const SVG_AVATAR = `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
 
-  const fallbackMovies = [
-    { id: 550, title: "Fight Club", release_date: "1999-10-15", vote_average: 8.4, poster_path: "/pB8BM7PDSp6B6Ih7QZ4DrQ3PmJK.jpg", overview: "Ένας υπάλληλος γραφείου με αυπνίες γνωρίζει έναν εκκεντρικό κατασκευαστή σαπουνιών." },
-    { id: 157336, title: "Interstellar", release_date: "2014-11-05", vote_average: 8.4, poster_path: "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg", overview: "Μια ομάδα εξερευνητών ταξιδεύει πέρα από αυτό το γαλαξία για να ανακαλύψει αν η ανθρωπότητα έχει μέλλον ανάμεσα στα αστέρια." },
-    { id: 27205, title: "Inception", release_date: "2010-07-15", vote_average: 8.4, poster_path: "/oYuLE1311oA8h39RSt9R9fG1q1E.jpg", overview: "Ένας κλέφτης που εισβάλλει στα όνειρα των ανθρώπων αναλαμβάνει την τελευταία του αποστολή." },
-    { id: 238, title: "The Godfather", release_date: "1972-03-14", vote_average: 8.7, poster_path: "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", overview: "Η ιστορία της οικογένειας Κορλεόνε και η μετάβαση της εξουσίας στον νεότερο γιο." }
-  ];
+  // Translations Object
+  const i18n = {
+    en: {
+      searchPlaceholder: "Search movie...",
+      langBtnLabel: "EL",
+      eyebrow: "MOVIE GUIDE",
+      heroTitle: 'WHAT TO<br>WATCH <em>TONIGHT</em>',
+      heroSub: "Discover your next favorite film — check runtime, view ratings, watch trailers, and explore the cast.",
+      trendingTitle: "Trending Now",
+      searchResultFor: 'Results for',
+      allGenres: "All",
+      titlesCount: "titles",
+      moreInfo: "View details →",
+      loading: "Loading movies...",
+      empty: "No movies found.",
+      loadingRuntime: "Loading...",
+      noRuntime: "N/A",
+      noOverview: "No overview available.",
+      castTitle: "CAST",
+      loadingCast: "Loading cast...",
+      noCast: "No cast information available.",
+      errCast: "Failed to load cast.",
+      trailerTitle: "OFFICIAL TRAILER",
+      loadingTrailer: "Loading trailer...",
+      noTrailer: "No trailer available.",
+      errTrailer: "Failed to load trailer.",
+      footer: "REEL — movie discovery demo. Powered by TMDB.",
+      hours: "h",
+      mins: "m"
+    },
+    el: {
+      searchPlaceholder: "Αναζήτηση ταινίας...",
+      langBtnLabel: "EN",
+      eyebrow: "ΟΔΗΓΟΣ ΤΑΙΝΙΩΝ",
+      heroTitle: 'ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em>',
+      heroSub: "Ανακάλυψε την επόμενη ταινία σου — ενημερώσου για τη διάρκεια, τσέκαρε τις βαθμολογίες, δες το trailer και γνώρισε τους ηθοποιούς.",
+      trendingTitle: "Στη Πρώτη Γραμμή",
+      searchResultFor: 'Αποτελέσματα για',
+      allGenres: "Όλα",
+      titlesCount: "τίτλοι",
+      moreInfo: "Δες περισσότερα →",
+      loading: "Φορτώνει το πρόγραμμα...",
+      empty: "Καμία ταινία δεν βρέθηκε.",
+      loadingRuntime: "Φόρτωση...",
+      noRuntime: "Μη διαθέσιμη",
+      noOverview: "Δεν υπάρχει διαθέσιμη περίληψη.",
+      castTitle: "ΗΘΟΠΟΙΟΙ / CAST",
+      loadingCast: "Φόρτωση ηθοποιών...",
+      noCast: "Δεν βρέθηκαν πληροφορίες ηθοποιών.",
+      errCast: "Αδυναμία φόρτωσης ηθοποιών.",
+      trailerTitle: "ΕΠΙΣΗΜΟ TRAILER",
+      loadingTrailer: "Φόρτωση Trailer...",
+      noTrailer: "Δεν βρέθηκε διαθέσιμο trailer.",
+      errTrailer: "Αδυναμία φόρτωσης trailer.",
+      footer: "REEL — ένα demo ανακάλυψης ταινιών. Δεδομένα από TMDB.",
+      hours: "ω",
+      mins: "λ"
+    }
+  };
 
   const $ = (id) => document.getElementById(id);
 
   init();
 
   function init(){
+    updateStaticTexts();
+    loadGenresAndData();
+
+    $('langToggleBtn').addEventListener('click', toggleLanguage);
+  }
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'el' : 'en';
+    document.documentElement.lang = currentLang;
+    updateStaticTexts();
+    loadGenresAndData();
+  }
+
+  function getApiLangParam() {
+    return currentLang === 'el' ? 'el-GR' : 'en-US';
+  }
+
+  function updateStaticTexts() {
+    const t = i18n[currentLang];
+    $('navSearchInput').placeholder = t.searchPlaceholder;
+    $('langToggleBtn').querySelector('span').textContent = t.langBtnLabel;
+    $('heroEyebrow').textContent = t.eyebrow;
+    $('heroTitle').innerHTML = t.heroTitle;
+    $('heroSub').textContent = t.heroSub;
+    $('loadingTxt').textContent = t.loading;
+    $('emptyState').textContent = t.empty;
+    $('footerTxt').textContent = t.footer;
+  }
+
+  function loadGenresAndData() {
     $('loadingState').style.display = 'block';
-    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=el`)
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=${getApiLangParam()}`)
       .then(r => r.json())
       .then(data => {
         genres = data.genres || [];
         renderGenres();
-        loadTrending();
+        
+        // Reload based on search input or active genre or trending
+        const query = $('navSearchInput').value.trim();
+        if (query) {
+          performSearch(query);
+        } else if (activeGenre) {
+          fetchMoviesByGenre(activeGenre);
+        } else {
+          loadTrending();
+        }
       })
       .catch(() => {
-        loadFallback();
+        $('loadingState').style.display = 'none';
       });
   }
 
   function renderGenres(){
     const row = $('genreRow');
     row.innerHTML = '';
+    
     const allChip = document.createElement('button');
-    allChip.className = 'chip active';
-    allChip.textContent = 'Όλα';
+    allChip.className = `chip ${!activeGenre ? 'active' : ''}`;
+    allChip.textContent = i18n[currentLang].allGenres;
     allChip.onclick = () => selectGenre(null, allChip);
     row.appendChild(allChip);
+
     genres.forEach(g => {
       const chip = document.createElement('button');
-      chip.className = 'chip';
+      chip.className = `chip ${activeGenre && activeGenre.id === g.id ? 'active' : ''}`;
       chip.textContent = g.name;
       chip.onclick = () => selectGenre(g, chip);
       row.appendChild(chip);
@@ -311,37 +354,43 @@
   }
 
   function selectGenre(g, chipEl){
+    activeGenre = g;
+    $('navSearchInput').value = '';
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     chipEl.classList.add('active');
+
     if(g){
-      $('gridTitle').textContent = g.name;
-      fetchMovies(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=el&with_genres=${g.id}&sort_by=popularity.desc`);
+      fetchMoviesByGenre(g);
     } else {
       loadTrending();
     }
   }
 
-  function loadTrending(){
-    $('gridTitle').textContent = 'Στη Πρώτη Γραμμή';
-    fetchMovies(`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}&language=el`);
+  function fetchMoviesByGenre(g) {
+    $('gridTitle').textContent = g.name;
+    fetchMovies(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&language=${getApiLangParam()}&with_genres=${g.id}&sort_by=popularity.desc`);
   }
 
-  function loadFallback(){
-    $('loadingState').style.display = 'none';
-    $('gridCount').textContent = `${fallbackMovies.length} τίτλοι`;
-    renderGrid(fallbackMovies);
+  function loadTrending(){
+    activeGenre = null;
+    $('gridTitle').textContent = i18n[currentLang].trendingTitle;
+    fetchMovies(`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}&language=${getApiLangParam()}`);
   }
 
   $('navSearchInput').addEventListener('input', (e) => {
     clearTimeout(searchTimeout);
     const q = e.target.value.trim();
     searchTimeout = setTimeout(() => {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
       if(q.length === 0){ loadTrending(); return; }
-      $('gridTitle').textContent = `Αποτελέσματα για "${q}"`;
-      fetchMovies(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=el&query=${encodeURIComponent(q)}`);
+      performSearch(q);
     }, 450);
   });
+
+  function performSearch(q) {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    $('gridTitle').textContent = `${i18n[currentLang].searchResultFor} "${q}"`;
+    fetchMovies(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=${getApiLangParam()}&query=${encodeURIComponent(q)}`);
+  }
 
   function fetchMovies(url){
     $('movieGrid').innerHTML = '';
@@ -352,18 +401,21 @@
       .then(data => {
         $('loadingState').style.display = 'none';
         const results = (data.results || []).filter(m => m.poster_path || m.title);
-        $('gridCount').textContent = results.length ? `${results.length} τίτλοι` : '';
+        $('gridCount').textContent = results.length ? `${results.length} ${i18n[currentLang].titlesCount}` : '';
         if(results.length === 0){ $('emptyState').style.display = 'block'; return; }
         renderGrid(results);
       })
       .catch(() => {
-        loadFallback();
+        $('loadingState').style.display = 'none';
+        $('emptyState').style.display = 'block';
       });
   }
 
   function renderGrid(movies){
     const grid = $('movieGrid');
     grid.innerHTML = '';
+    const t = i18n[currentLang];
+
     movies.forEach(m => {
       const card = document.createElement('div');
       card.className = 'card';
@@ -372,10 +424,10 @@
       card.innerHTML = `
         <div class="poster-wrap">
           ${m.poster_path
-            ? `<img loading="lazy" src="${IMG}${m.poster_path}" alt="Αφίσα: ${escapeHtml(m.title)}">`
+            ? `<img loading="lazy" src="${IMG}${m.poster_path}" alt="${escapeHtml(m.title)}">`
             : `<div class="poster-fallback">${escapeHtml(m.title)}</div>`}
           <div class="rating-badge">★ ${rating}</div>
-          <div class="card-hover-info"><span>Δες περισσότερα →</span></div>
+          <div class="card-hover-info"><span>${t.moreInfo}</span></div>
         </div>
         <div class="card-title">${escapeHtml(m.title)}</div>
         <div class="card-year">${year}</div>
@@ -393,13 +445,14 @@
   }
 
   function formatRuntime(minutes) {
-    if(!minutes) return '';
+    const t = i18n[currentLang];
+    if(!minutes || minutes <= 0) return t.noRuntime;
     const hrs = Math.floor(minutes / 60);
     const mins = minutes % 60;
     if(hrs > 0) {
-      return `${hrs}ω ${mins}λ`;
+      return `${hrs}${t.hours} ${mins}${t.mins}`;
     }
-    return `${mins}λ`;
+    return `${mins}${t.mins}`;
   }
 
   function openModal(m){
@@ -408,35 +461,37 @@
     overlay.className = 'overlay';
     overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.remove(); });
     const year = (m.release_date || '').slice(0,4) || '—';
+    const t = i18n[currentLang];
 
     overlay.innerHTML = `
       <div class="modal">
-        <button class="modal-close" aria-label="Κλείσιμο">✕</button>
+        <button class="modal-close" aria-label="Close">✕</button>
         <div class="modal-hero">
-          <img src="${m.poster_path ? IMG + m.poster_path : ''}" alt="Αφίσα: ${escapeHtml(m.title)}" onerror="this.style.display='none'">
+          <img src="${m.poster_path ? IMG + m.poster_path : ''}" alt="${escapeHtml(m.title)}" onerror="this.style.display='none'">
           <div class="modal-info">
             <h2>${escapeHtml(m.title)}</h2>
             <div class="modal-meta">
               <span><b>★ ${m.vote_average ? m.vote_average.toFixed(1) : '—'}</b></span>
               <span>•</span>
               <span>${year}</span>
-              <span id="runtimeSpan"></span>
+              <span>•</span>
+              <span id="runtimeSpan" class="runtime-badge">⏱ ${t.loadingRuntime}</span>
             </div>
-            <p class="modal-overview">${escapeHtml(m.overview) || 'Δεν υπάρχει διαθέσιμη περίληψη.'}</p>
+            <p class="modal-overview">${escapeHtml(m.overview) || t.noOverview}</p>
             
             <div class="modal-section">
-              <h3 class="modal-section-title">ΗΘΟΠΟΙΟΙ / CAST</h3>
+              <h3 class="modal-section-title">${t.castTitle}</h3>
               <div class="cast-scroll-container">
                 <div id="castArea" class="cast-grid">
-                  <div style="color:var(--smoke); font-size:13px;">Φόρτωση ηθοποιών...</div>
+                  <div style="color:var(--smoke); font-size:13px;">${t.loadingCast}</div>
                 </div>
               </div>
             </div>
 
             <div class="modal-section">
-              <h3 class="modal-section-title">ΕΠΙΣΗΜΟ TRAILER</h3>
+              <h3 class="modal-section-title">${t.trailerTitle}</h3>
               <div id="trailerArea" class="trailer-container">
-                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke); font-size:13px;">Φόρτωση Trailer...</div>
+                <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke); font-size:13px;">${t.loadingTrailer}</div>
               </div>
             </div>
 
@@ -448,19 +503,22 @@
     overlay.querySelector('.modal-close').addEventListener('click', () => overlay.remove());
     root.appendChild(overlay);
 
-    // Fetch Details (Για τη διάρκεια της ταινίας)
-    fetch(`https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}&language=el`)
+    // Fetch Details (Runtime)
+    fetch(`https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}&language=${getApiLangParam()}`)
       .then(r => r.json())
       .then(data => {
         const runtimeSpan = document.getElementById('runtimeSpan');
-        if(runtimeSpan && data.runtime) {
-          runtimeSpan.innerHTML = `• <span class="runtime-badge">⏱ ${formatRuntime(data.runtime)}</span>`;
+        if(runtimeSpan) {
+          runtimeSpan.innerHTML = `⏱ ${formatRuntime(data.runtime)}`;
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        const runtimeSpan = document.getElementById('runtimeSpan');
+        if(runtimeSpan) runtimeSpan.innerHTML = `⏱ —`;
+      });
 
     // Fetch Cast 
-    fetch(`https://api.themoviedb.org/3/movie/${m.id}/credits?api_key=${API_KEY}&language=el`)
+    fetch(`https://api.themoviedb.org/3/movie/${m.id}/credits?api_key=${API_KEY}&language=${getApiLangParam()}`)
       .then(r => r.json())
       .then(data => {
         const castArea = document.getElementById('castArea');
@@ -487,38 +545,53 @@
             `;
           }).join('');
         } else {
-          castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">Δεν βρέθηκαν πληροφορίες ηθοποιών.</div>`;
+          castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">${t.noCast}</div>`;
         }
       })
       .catch(() => {
         const castArea = document.getElementById('castArea');
-        if(castArea) castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">Αδυναμία φόρτωσης ηθοποιών.</div>`;
+        if(castArea) castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">${t.errCast}</div>`;
       });
 
     // Fetch Trailer
-    fetch(`https://api.themoviedb.org/3/movie/${m.id}/videos?api_key=${API_KEY}`)
+    fetch(`https://api.themoviedb.org/3/movie/${m.id}/videos?api_key=${API_KEY}&language=${getApiLangParam()}`)
       .then(r => r.json())
       .then(data => {
         const trailerArea = document.getElementById('trailerArea');
-        const videos = data.results || [];
-        const trailer = videos.find(v => v.site === 'YouTube' && v.type === 'Trailer') || videos[0];
+        let videos = data.results || [];
+        let trailer = videos.find(v => v.site === 'YouTube' && v.type === 'Trailer');
 
-        if(trailer && trailer.key) {
-          trailerArea.innerHTML = `
-            <iframe 
-              src="https://www.youtube-nocookie.com/embed/${trailer.key}" 
-              title="Official Trailer" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>`;
+        // Fallback to English trailer if missing in Greek
+        if (!trailer && currentLang === 'el') {
+          fetch(`https://api.themoviedb.org/3/movie/${m.id}/videos?api_key=${API_KEY}&language=en-US`)
+            .then(r => r.json())
+            .then(enData => {
+              const enVideos = enData.results || [];
+              const enTrailer = enVideos.find(v => v.site === 'YouTube' && v.type === 'Trailer') || enVideos[0];
+              renderTrailer(enTrailer);
+            });
         } else {
-          trailerArea.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke); font-size:13px;">Δεν βρέθηκε διαθέσιμο trailer.</div>`;
+          renderTrailer(trailer || videos[0]);
+        }
+
+        function renderTrailer(videoObj) {
+          if(videoObj && videoObj.key) {
+            trailerArea.innerHTML = `
+              <iframe 
+                src="https://www.youtube-nocookie.com/embed/${videoObj.key}" 
+                title="Official Trailer" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+              </iframe>`;
+          } else {
+            trailerArea.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke); font-size:13px;">${t.noTrailer}</div>`;
+          }
         }
       })
       .catch(() => {
         const trailerArea = document.getElementById('trailerArea');
         if(trailerArea) {
-          trailerArea.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke); font-size:13px;">Αδυναμία φόρτωσης trailer.</div>`;
+          trailerArea.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--smoke); font-size:13px;">${t.errTrailer}</div>`;
         }
       });
   }
