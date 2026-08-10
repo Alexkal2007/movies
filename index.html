@@ -84,6 +84,29 @@
   .marquee-title em{font-style:normal; color:transparent; -webkit-text-stroke:1.5px var(--wine-bright);}
   .hero-sub{max-width:520px; color:var(--smoke); font-size:16px; line-height:1.6; margin-top:18px;}
 
+  /* Hero NordVPN Button Styling */
+  .hero-nord-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    background-color: #4687FF;
+    color: #ffffff;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(70, 135, 255, 0.25);
+  }
+  .hero-nord-btn:hover {
+    background-color: #2b6fe8;
+    transform: translateY(-2px);
+  }
+
   .section{max-width:1200px; margin:0 auto; padding:44px 28px;}
   .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:22px; border-bottom:1px solid var(--line); padding-bottom:14px;}
   .section-head h2{font-size:30px; color:var(--bone);}
@@ -232,7 +255,11 @@
   <div class="hero-inner">
     <div class="eyebrow" id="heroEyebrow">MOVIE GUIDE</div>
     <h1 class="marquee-title" id="heroTitle">WHAT TO<br>WATCH <em>TONIGHT</em></h1>
-    <p class="hero-sub" id="heroSub">Discover your next favorite film — check runtime, view ratings, watch trailers, and explore the cast.</p>
+    <p class="hero-sub" id="heroSub">Welcome to CinemaGuide — Your Ultimate Movie & Streaming Directory. Tired of spending more time searching for a movie than actually watching it? CinemaGuide simplifies your decision-making process. Dive deep into plot overviews, runtime details, viewer ratings, and full cast member profiles. Preview HD trailers before you commit, compare available streaming services, and discover hidden cinematic gems tailored to your taste. Everything you need to plan your next movie night is just a click away.</p>
+    
+    <a href="https://www.kqzyfj.com/click-101858026-13756265" target="_blank" rel="noopener noreferrer sponsored" class="hero-nord-btn" id="heroNordBtn">
+      🔒 Can't access your favorite movies? Unlock global streaming with NordVPN
+    </a>
   </div>
 </section>
 
@@ -276,6 +303,7 @@
       eyebrow: "MOVIE GUIDE",
       heroTitle: 'WHAT TO<br>WATCH <em>TONIGHT</em>',
       heroSub: "Welcome to CinemaGuide — Your Ultimate Movie & Streaming Directory. Tired of spending more time searching for a movie than actually watching it? CinemaGuide simplifies your decision-making process. Dive deep into plot overviews, runtime details, viewer ratings, and full cast member profiles. Preview HD trailers before you commit, compare available streaming services, and discover hidden cinematic gems tailored to your taste. Everything you need to plan your next movie night is just a click away.",
+      heroNordText: "🔒 Can't access your favorite movies? Unlock global streaming with NordVPN",
       trendingTitle: "Trending Now",
       searchResultFor: 'Results for',
       allGenres: "All",
@@ -306,6 +334,7 @@
       eyebrow: "ΟΔΗΓΟΣ ΤΑΙΝΙΩΝ",
       heroTitle: 'ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em>',
       heroSub: "Καλώς ήρθες στο CinemaGuide — Ο Απόλυτος Οδηγός Ταινιών & Streaming. Κουράστηκες να ψάχνεις τι θα δεις περισσότερο από όσο διαρκεί η ίδια η ταινία; Το CinemaGuide κάνει την επιλογή παιχνιδάκι. Ανακάλυψε περιλήψεις υποθέσεων, λεπτομέρειες διάρκειας, βαθμολογίες κοινού και αναλυτικά προφίλ ηθοποιών. Δες HD trailers πριν αποφασίσεις, σύγκρινε τις διαθέσιμες πλατφόρμες streaming και ανακάλυψε διαμάντια του κινηματογράφου προσαρμοσμένα στα γούστα σου. Όλα όσα χρειάζεσαι για την επόμενη movie night είναι μόλις ένα κλικ μακριά.",
+      heroNordText: "🔒 Δεν βρίσκεις την ταινία στην περιοχή σου; Ξεκλείδωσε διεθνές περιεχόμενο με το NordVPN",
       trendingTitle: "ΔΗΜΟΦΙΛΗ ΤΩΡΑ",
       searchResultFor: 'Αποτελέσματα για',
       allGenres: "Όλα",
@@ -361,6 +390,7 @@
     $('heroEyebrow').textContent = t.eyebrow;
     $('heroTitle').innerHTML = t.heroTitle;
     $('heroSub').textContent = t.heroSub;
+    $('heroNordBtn').textContent = t.heroNordText;
     $('loadingTxt').textContent = t.loading;
     $('emptyState').textContent = t.empty;
     $('footerTxt').textContent = t.footer;
