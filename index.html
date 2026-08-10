@@ -136,8 +136,10 @@
   .runtime-badge{background:var(--void); border:1px solid var(--gold-dim); padding:3px 8px; border-radius:4px; color:var(--bone); font-weight:500;}
   .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 20px;}
 
+  /* Affiliate Buttons Container */
+  .affiliate-buttons-wrap {display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;}
+  
   /* Prime Video Affiliate Button Styling */
-  .prime-affiliate-wrap {margin-bottom: 24px;}
   .prime-affiliate-btn {
     display: inline-flex;
     align-items: center;
@@ -157,6 +159,29 @@
   }
   .prime-affiliate-btn:hover {
     background-color: #0082b0;
+    transform: translateY(-2px);
+  }
+
+  /* NordVPN Affiliate Button Styling */
+  .nordvpn-affiliate-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #4687FF;
+    color: #ffffff;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(70, 135, 255, 0.25);
+  }
+  .nordvpn-affiliate-btn:hover {
+    background-color: #2b6fe8;
     transform: translateY(-2px);
   }
 
@@ -262,6 +287,7 @@
       noRuntime: "N/A",
       noOverview: "No overview available.",
       watchPrimeBtn: "🍿 WATCH ON PRIME VIDEO",
+      watchNordBtn: "🔒 UNLOCK ANYWHERE WITH NORDVPN",
       castTitle: "CAST",
       loadingCast: "Loading cast...",
       noCast: "No cast information available.",
@@ -291,6 +317,7 @@
       noRuntime: "Μη διαθέσιμη",
       noOverview: "Δεν υπάρχει διαθέσιμη περίληψη.",
       watchPrimeBtn: "🍿 ΔΕΣ ΤΟ ΣΤΟ PRIME VIDEO",
+      watchNordBtn: "🔒 ΞΕΚΛΕΙΔΩΣΕ ΤΟ ΠΑΝΤΟΥ ΜΕ NORDVPN",
       castTitle: "ΗΘΟΠΟΙΟΙ / CAST",
       loadingCast: "Φόρτωση ηθοποιών...",
       noCast: "Δεν βρέθηκαν πληροφορίες ηθοποιών.",
@@ -507,9 +534,12 @@
             </div>
             <p class="modal-overview">${escapeHtml(m.overview) || t.noOverview}</p>
             
-            <div class="prime-affiliate-wrap">
-              <a href="https://amzn.to/4q5HV4p" target="_blank" rel="noopener noreferrer" class="prime-affiliate-btn">
+            <div class="affiliate-buttons-wrap">
+              <a href="https://amzn.to/4q5HV4p" target="_blank" rel="noopener noreferrer sponsored" class="prime-affiliate-btn">
                 ${t.watchPrimeBtn}
+              </a>
+              <a href="https://www.kqzyfj.com/click-101858026-13756265" target="_blank" rel="noopener noreferrer sponsored" class="nordvpn-affiliate-btn">
+                ${t.watchNordBtn}
               </a>
             </div>
 
