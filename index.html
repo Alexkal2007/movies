@@ -134,7 +134,31 @@
   .modal-meta{display:flex; gap:12px; flex-wrap:wrap; margin:14px 0; font-size:13px; color:var(--smoke); align-items:center;}
   .modal-meta b{color:var(--gold);}
   .runtime-badge{background:var(--void); border:1px solid var(--gold-dim); padding:3px 8px; border-radius:4px; color:var(--bone); font-weight:500;}
-  .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 24px;}
+  .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 20px;}
+
+  /* Prime Video Affiliate Button Styling */
+  .prime-affiliate-wrap {margin-bottom: 24px;}
+  .prime-affiliate-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #00A8E1;
+    color: #ffffff;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 168, 225, 0.25);
+  }
+  .prime-affiliate-btn:hover {
+    background-color: #0082b0;
+    transform: translateY(-2px);
+  }
 
   .modal-section{margin-top:28px; padding-top:20px; border-top:1px solid var(--line);}
   .modal-section-title{font-size:20px; color:var(--gold); margin-bottom:16px;}
@@ -237,6 +261,7 @@
       loadingRuntime: "Loading...",
       noRuntime: "N/A",
       noOverview: "No overview available.",
+      watchPrimeBtn: "🍿 WATCH ON PRIME VIDEO",
       castTitle: "CAST",
       loadingCast: "Loading cast...",
       noCast: "No cast information available.",
@@ -265,6 +290,7 @@
       loadingRuntime: "Φόρτωση...",
       noRuntime: "Μη διαθέσιμη",
       noOverview: "Δεν υπάρχει διαθέσιμη περίληψη.",
+      watchPrimeBtn: "🍿 ΔΕΣ ΤΟ ΣΤΟ PRIME VIDEO",
       castTitle: "ΗΘΟΠΟΙΟΙ / CAST",
       loadingCast: "Φόρτωση ηθοποιών...",
       noCast: "Δεν βρέθηκαν πληροφορίες ηθοποιών.",
@@ -481,6 +507,12 @@
             </div>
             <p class="modal-overview">${escapeHtml(m.overview) || t.noOverview}</p>
             
+            <div class="prime-affiliate-wrap">
+              <a href="https://amzn.to/4q5HV4p" target="_blank" rel="noopener noreferrer" class="prime-affiliate-btn">
+                ${t.watchPrimeBtn}
+              </a>
+            </div>
+
             <div class="modal-section">
               <h3 class="modal-section-title">${t.castTitle}</h3>
               <div class="cast-scroll-container">
