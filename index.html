@@ -144,6 +144,16 @@
   .spinner{width:26px; height:26px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
+  /* Bottom Text Box Styling */
+  .bottom-info-box {
+    margin-top: 50px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--smoke);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
   /* Modal Styling */
   .overlay{position:fixed; inset:0; background:rgba(11,11,13,0.85); backdrop-filter: blur(4px); z-index:100; display:flex; align-items:flex-start; justify-content:center; overflow-y:auto; padding:40px 20px;}
   .modal{background:var(--void-2); max-width:860px; width:100%; border:1px solid var(--line); position:relative; animation:rise .25s ease;}
@@ -288,6 +298,10 @@
     <div id="movieGrid" class="grid"></div>
     <div id="loadingState" class="loading" style="display:none;"><div class="spinner"></div><span id="loadingTxt">Loading movies...</span></div>
     <div id="emptyState" class="empty" style="display:none;" id="emptyTxt">No movies found.</div>
+
+    <div class="bottom-info-box">
+      <p>CinemaGuide is a movie discovery and information platform designed to help you find your next movie. We do not host, upload, or provide access to copyrighted movies or TV shows. Our platform provides movie information, ratings, genres, trailers and recommendations to help users decide what to watch.</p>
+    </div>
   </section>
 </main>
 
