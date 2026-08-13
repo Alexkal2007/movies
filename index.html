@@ -86,12 +86,19 @@
   .marquee-title em{font-style:normal; color:transparent; -webkit-text-stroke:1.5px var(--wine-bright);}
   .hero-sub{max-width:520px; color:var(--smoke); font-size:16px; line-height:1.6; margin-top:18px;}
 
+  /* Hero Buttons Container */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
   /* Hero NordVPN Button Styling */
   .hero-nord-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-top: 22px;
     background-color: #4687FF;
     color: #ffffff;
     font-family: 'Work Sans', sans-serif;
@@ -106,6 +113,28 @@
   }
   .hero-nord-btn:hover {
     background-color: #2b6fe8;
+    transform: translateY(-2px);
+  }
+
+  /* Hero Aurzen Projectors Button Styling */
+  .hero-aurzen-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ff4757;
+    color: #ffffff;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.25);
+  }
+  .hero-aurzen-btn:hover {
+    background-color: #ff6b81;
     transform: translateY(-2px);
   }
 
@@ -286,9 +315,14 @@
     <h1 class="marquee-title" id="heroTitle">WHAT TO<br>WATCH <em>TONIGHT</em></h1>
     <p class="hero-sub" id="heroSub">Welcome to CinemaGuide — Your Ultimate Movie & Streaming Directory. Tired of spending more time searching for a movie than actually watching it? CinemaGuide simplifies your decision-making process. Dive deep into plot overviews, runtime details, viewer ratings, and full cast member profiles. Preview HD trailers before you commit, compare available streaming services, and discover hidden cinematic gems tailored to your taste. Everything you need to plan your next movie night is just a click away.</p>
     
-    <a href="https://www.anrdoezrs.net/click-101858026-17310927" target="_blank" rel="noopener noreferrer sponsored" class="hero-nord-btn" id="heroNordBtn">
-      🔒 Can't access your favorite movies? Unlock global streaming with NordVPN
-    </a>
+    <div class="hero-actions">
+      <a href="https://www.anrdoezrs.net/click-101858026-17310927" target="_blank" rel="noopener noreferrer sponsored" class="hero-nord-btn" id="heroNordBtn">
+        🔒 Can't access your favorite movies? Unlock global streaming with NordVPN
+      </a>
+      <a href="ΤΟ_ΑΦΙΛΙΕΙΤ_ΛΙΝΚ_ΣΟΥ_AURZEN" target="_blank" rel="noopener noreferrer sponsored" class="hero-aurzen-btn" id="heroAurzenBtn">
+        🍿 Upgrade Your Movie Night | Get 10% Off Aurzen Projectors →
+      </a>
+    </div>
   </div>
 </section>
 
@@ -347,6 +381,7 @@
       heroTitle: 'WHAT TO<br>WATCH <em>TONIGHT</em>',
       heroSub: "Welcome to CinemaGuide — Your Ultimate Movie & Streaming Directory. Tired of spending more time searching for a movie than actually watching it? CinemaGuide simplifies your decision-making process. Dive deep into plot overviews, runtime details, viewer ratings, and full cast member profiles. Preview HD trailers before you commit, compare available streaming services, and discover hidden cinematic gems tailored to your taste. Everything you need to plan your next movie night is just a click away.",
       heroNordText: "🔒 Can't access your favorite movies? Unlock global streaming with NordVPN",
+      heroAurzenText: "🍿 Upgrade Your Movie Night | Get 10% Off Aurzen Projectors →",
       trendingTitle: "Trending Now",
       searchResultFor: 'Results for',
       allGenres: "All",
@@ -392,7 +427,7 @@
         },
         affiliate: {
           title: "Affiliate Disclosure",
-          content: "<p>CinemaGuide participates in various affiliate marketing programs designed to provide a means for websites to earn referral fees by linking to commercial services.</p><p>When you click on links to services such as Amazon Prime Video, NordVPN, or other partner platforms and make a purchase or subscription, CinemaGuide may earn an affiliate commission at no additional cost to you.</p><p>These partnerships support the continuous development, maintenance, and hosting of CinemaGuide, ensuring our platform remains free for all users.</p>"
+          content: "<p>CinemaGuide participates in various affiliate marketing programs designed to provide a means for websites to earn referral fees by linking to commercial services.</p><p>When you click on links to services such as Amazon Prime Video, NordVPN, Aurzen or other partner platforms and make a purchase or subscription, CinemaGuide may earn an affiliate commission at no additional cost to you.</p><p>These partnerships support the continuous development, maintenance, and hosting of CinemaGuide, ensuring our platform remains free for all users.</p>"
         },
         contact: {
           title: "Contact Us",
@@ -407,6 +442,7 @@
       heroTitle: 'ΤΙ<br>ΠΑΙΖΕΙ <em>ΑΠΟΨΕ</em>',
       heroSub: "Καλώς ήρθες στο CinemaGuide — Ο Απόλυτος Οδηγός Ταινιών & Streaming. Κουράστηκες να ψάχνεις τι θα δεις περισσότερο από όσο διαρκεί η ίδια η ταινία; Το CinemaGuide κάνει την επιλογή παιχνιδάκι. Ανακάλυψε περιλήψεις υποθέσεων, λεπτομέρειες διάρκειας, βαθμολογίες κοινού και αναλυτικά προφίλ ηθοποιών. Δες HD trailers πριν αποφασίσεις, σύγκρινε τις διαθέσιμες πλατφόρμες streaming και ανακάλυψε διαμάντια του κινηματογράφου προσαρμοσμένα στα γούστα σου. Όλα όσα χρειάζεσαι για την επόμενη movie night είναι μόλις ένα κλικ μακριά.",
       heroNordText: "🔒 Δεν βρίσκεις την ταινία στην περιοχή σου; Ξεκλείδωσε διεθνές περιεχόμενο με το NordVPN",
+      heroAurzenText: "🍿 Αναβάθμισε τη Βραδιά Ταινίας | Έκπτωση 10% σε Projectors Aurzen →",
       trendingTitle: "ΔΗΜΟΦΙΛΗ ΤΩΡΑ",
       searchResultFor: 'Αποτελέσματα για',
       allGenres: "Όλα",
@@ -452,7 +488,7 @@
         },
         affiliate: {
           title: "Δήλωση Συνεργατών (Affiliate Disclosure)",
-          content: "<p>Το CinemaGuide συμμετέχει σε προγράμματα συνεργατών (affiliate marketing) που επιτρέπουν την εξασφάλιση προμηθειών μέσω συνδέσμων προς εμπορικές πλατφόρμες.</p><p>Όταν κάνετε κλικ σε συνδέσμους προς υπηρεσίες όπως το Amazon Prime Video, το NordVPN ή άλλους συνεργάτες και προβαίνετε σε συνδρομή ή αγορά, το CinemaGuide ενδέχεται να λάβει μια μικρή προμήθεια, χωρίς καμία απολύτως επιπλέον επιβάρυνση για εσάς.</p><p>Αυτές οι συνεργασίες συντηρούν τη λειτουργία, τη φιλοξενία και τη συνεχή ανάπτυξη του CinemaGuide, διατηρώντας το δωρεάν για όλους τους χρήστες.</p>"
+          content: "<p>Το CinemaGuide συμμετέχει σε προγράμματα συνεργατών (affiliate marketing) που επιτρέπουν την εξασφάλιση προμηθειών μέσω συνδέσμων προς εμπορικές πλατφόρμες.</p><p>Όταν κάνετε κλικ σε συνδέσμους προς υπηρεσίες όπως το Amazon Prime Video, το NordVPN, την Aurzen ή άλλους συνεργάτες και προβαίνετε σε συνδρομή ή αγορά, το CinemaGuide ενδέχεται να λάβει μια μικρή προμήθεια, χωρίς καμία απολύτως επιπλέον επιβάρυνση για εσάς.</p><p>Αυτές οι συνεργασίες συντηρούν τη λειτουργία, τη φιλοξενία και τη συνεχή ανάπτυξη του CinemaGuide, διατηρώντας το δωρεάν για όλους τους χρήστες.</p>"
         },
         contact: {
           title: "Επικοινωνία",
@@ -514,6 +550,7 @@
     $('heroTitle').innerHTML = t.heroTitle;
     $('heroSub').textContent = t.heroSub;
     $('heroNordBtn').textContent = t.heroNordText;
+    $('heroAurzenBtn').textContent = t.heroAurzenText;
     $('loadingTxt').textContent = t.loading;
     $('emptyState').textContent = t.empty;
     $('bottomAboutTitle').textContent = t.aboutBottomTitle;
