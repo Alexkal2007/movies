@@ -58,7 +58,6 @@
   .navsearch input:focus{border-color:var(--gold);}
   .navsearch svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:0.5;}
 
-  /* Language Switcher Button */
   .lang-btn {
     background: var(--void-2);
     border: 1px solid var(--gold);
@@ -86,7 +85,6 @@
   .marquee-title em{font-style:normal; color:transparent; -webkit-text-stroke:1.5px var(--wine-bright);}
   .hero-sub{max-width:520px; color:var(--smoke); font-size:16px; line-height:1.6; margin-top:18px;}
 
-  /* Hero NordVPN Button Styling */
   .hero-nord-btn {
     display: inline-flex;
     align-items: center;
@@ -146,7 +144,6 @@
   .spinner{width:26px; height:26px; border:2px solid var(--line); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
-  /* Bottom Text Box Styling */
   .bottom-info-box {
     margin-top: 50px;
     padding-top: 24px;
@@ -161,7 +158,6 @@
     margin-bottom: 8px;
   }
 
-  /* Modal Styling */
   .overlay{position:fixed; inset:0; background:rgba(11,11,13,0.85); backdrop-filter: blur(4px); z-index:100; display:flex; align-items:flex-start; justify-content:center; overflow-y:auto; padding:40px 20px;}
   .modal{background:var(--void-2); max-width:860px; width:100%; border:1px solid var(--line); position:relative; animation:rise .25s ease;}
   @keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);}}
@@ -176,7 +172,6 @@
   .runtime-badge{background:var(--void); border:1px solid var(--gold-dim); padding:3px 8px; border-radius:4px; color:var(--bone); font-weight:500;}
   .modal-overview{font-size:14px; line-height:1.7; color:var(--bone); opacity:0.9; margin-bottom: 20px;}
 
-  /* Policy Modal Body Styling */
   .policy-body { padding: 36px 32px; max-width: 800px; margin: 0 auto; color: var(--bone); }
   .policy-body h2 { font-size: 28px; color: var(--gold); margin-bottom: 20px; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
   .policy-body p { font-size: 14px; line-height: 1.7; color: var(--bone); opacity: 0.9; margin-bottom: 16px; }
@@ -184,10 +179,8 @@
   .policy-body ul { margin-left: 20px; margin-bottom: 16px; font-size: 14px; line-height: 1.6; color: var(--smoke); }
   .policy-body ul li { margin-bottom: 6px; }
 
-  /* Affiliate Buttons Container */
   .affiliate-buttons-wrap {display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;}
   
-  /* Prime Video Affiliate Button Styling */
   .prime-affiliate-btn {
     display: inline-flex;
     align-items: center;
@@ -210,7 +203,6 @@
     transform: translateY(-2px);
   }
 
-  /* NordVPN Affiliate Button Styling */
   .nordvpn-affiliate-btn {
     display: inline-flex;
     align-items: center;
@@ -248,7 +240,6 @@
   .trailer-container {position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 12px; border: 1px solid var(--line); background: #000;}
   .trailer-container iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;}
 
-  /* Footer Styling & Links */
   footer{border-top:1px solid var(--line); padding:30px 28px; text-align:center; color:var(--smoke); font-size:12px;}
   .footer-links { margin-bottom: 12px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
   .footer-links a { color: var(--bone); text-decoration: none; font-weight: 500; transition: color 0.2s; }
@@ -331,14 +322,13 @@
   const IMG = 'https://image.tmdb.org/t/p/w500';
   const API_KEY = '643419c13ccbd8f43fa2b9712e2dc455';
   
-  let currentLang = 'en'; // 'en' or 'el'
+  let currentLang = 'en'; 
   let genres = [];
   let searchTimeout = null;
   let activeGenre = null;
 
   const SVG_AVATAR = `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
 
-  // Translations Object
   const i18n = {
     en: {
       searchPlaceholder: "Search movie...",
@@ -378,26 +368,11 @@
       navAffiliate: "Affiliate Disclosure",
       navContact: "Contact Us",
       policies: {
-        about: {
-          title: "About CinemaGuide",
-          content: "<p>Welcome to CinemaGuide, your premier digital destination for discovering movies, streaming options, and entertainment insights.</p><p>Our mission is to eliminate decision paralysis when choosing what to watch. By curating comprehensive details including cast information, official trailers, runtime metrics, and streaming availability, CinemaGuide helps film enthusiasts make quick and informed entertainment choices.</p><p>We leverage industry-leading public databases such as TMDB to ensure up-to-date and accurate cinematic information.</p>"
-        },
-        privacy: {
-          title: "Privacy Policy",
-          content: "<p>At CinemaGuide, we respect your privacy. This policy outlines how we handle user data across our website.</p><h3>Data Collection</h3><p>CinemaGuide does not require user registration or personal account creation. We do not collect or store personal identifiable information (PII) directly on our servers.</p><h3>Cookies & Analytics</h3><p>We may use standard third-party tracking scripts or affiliate network parameters to analyze general traffic patterns or verify referral links. These tools may place small data files (cookies) on your browser to ensure seamless navigation and link performance.</p><h3>Third-Party Websites</h3><p>Our platform contains links to external streaming services, affiliate partners, and databases. CinemaGuide is not responsible for the privacy practices or content of third-party external platforms.</p>"
-        },
-        terms: {
-          title: "Terms of Service",
-          content: "<p>By accessing and using CinemaGuide, you agree to comply with and be bound by the following terms and conditions.</p><h3>Use of Content</h3><p>All textual content, curated layouts, and branding assets are owned by CinemaGuide or licensed appropriately. Movie metadata, posters, and cast imagery are provided via TMDB API endpoints in compliance with their terms of use.</p><h3>Disclaimer</h3><p>CinemaGuide provides movie discovery services 'as is'. While we strive for absolute accuracy, we cannot guarantee that all streaming availability, runtime, or cast data remains completely error-free or uninterrupted.</p>"
-        },
-        affiliate: {
-          title: "Affiliate Disclosure",
-          content: "<p>CinemaGuide participates in various affiliate marketing programs designed to provide a means for websites to earn referral fees by linking to commercial services.</p><p>When you click on links to services such as Amazon Prime Video, NordVPN, or other partner platforms and make a purchase or subscription, CinemaGuide may earn an affiliate commission at no additional cost to you.</p><p>These partnerships support the continuous development, maintenance, and hosting of CinemaGuide, ensuring our platform remains free for all users.</p>"
-        },
-        contact: {
-          title: "Contact Us",
-          content: "<p>Have questions, feedback, or business inquiries? We would love to hear from you.</p><p>Please reach out to our administration team directly via email:</p><p><strong>Email:</strong> cinemaguide.online@gmail.com</p><p>We aim to respond to all inquiries within 24–48 business hours.</p>"
-        }
+        about: { title: "About CinemaGuide", content: "<p>Welcome to CinemaGuide, your premier digital destination for discovering movies, streaming options, and entertainment insights.</p><p>Our mission is to eliminate decision paralysis when choosing what to watch. By curating comprehensive details including cast information, official trailers, runtime metrics, and streaming availability, CinemaGuide helps film enthusiasts make quick and informed entertainment choices.</p><p>We leverage industry-leading public databases such as TMDB to ensure up-to-date and accurate cinematic information.</p>" },
+        privacy: { title: "Privacy Policy", content: "<p>At CinemaGuide, we respect your privacy. This policy outlines how we handle user data across our website.</p><h3>Data Collection</h3><p>CinemaGuide does not require user registration or personal account creation. We do not collect or store personal identifiable information (PII) directly on our servers.</p><h3>Cookies & Analytics</h3><p>We may use standard third-party tracking scripts or affiliate network parameters to analyze general traffic patterns or verify referral links. These tools may place small data files (cookies) on your browser to ensure seamless navigation and link performance.</p><h3>Third-Party Websites</h3><p>Our platform contains links to external streaming services, affiliate partners, and databases. CinemaGuide is not responsible for the privacy practices or content of third-party external platforms.</p>" },
+        terms: { title: "Terms of Service", content: "<p>By accessing and using CinemaGuide, you agree to comply with and be bound by the following terms and conditions.</p><h3>Use of Content</h3><p>All textual content, curated layouts, and branding assets are owned by CinemaGuide or licensed appropriately. Movie metadata, posters, and cast imagery are provided via TMDB API endpoints in compliance with their terms of use.</p><h3>Disclaimer</h3><p>CinemaGuide provides movie discovery services 'as is'. While we strive for absolute accuracy, we cannot guarantee that all streaming availability, runtime, or cast data remains completely error-free or uninterrupted.</p>" },
+        affiliate: { title: "Affiliate Disclosure", content: "<p>CinemaGuide participates in various affiliate marketing programs designed to provide a means for websites to earn referral fees by linking to commercial services.</p><p>When you click on links to services such as Amazon Prime Video, NordVPN, or other partner platforms and make a purchase or subscription, CinemaGuide may earn an affiliate commission at no additional cost to you.</p><p>These partnerships support the continuous development, maintenance, and hosting of CinemaGuide, ensuring our platform remains free for all users.</p>" },
+        contact: { title: "Contact Us", content: "<p>Have questions, feedback, or business inquiries? We would love to hear from you.</p><p>Please reach out to our administration team directly via email:</p><p><strong>Email:</strong> cinemaguide.online@gmail.com</p><p>We aim to respond to all inquiries within 24–48 business hours.</p>" }
       }
     },
     el: {
@@ -438,26 +413,11 @@
       navAffiliate: "Δήλωση Συνεργατών",
       navContact: "Επικοινωνία",
       policies: {
-        about: {
-          title: "Σχετικά με το CinemaGuide",
-          content: "<p>Καλώς ήρθατε στο CinemaGuide, τον κορυφαίο ψηφιακό προορισμό για την ανακάλυψη ταινιών, επιλογών streaming και κινηματογραφικών πληροφοριών.</p><p>Αποστολή μας είναι να διευκολύνουμε την απόφασή σας για το τι θα παρακολουθήσετε. Συγκεντρώνοντας αναλυτικές λεπτομέρειες, όπως ηθοποιούς, επίσημα trailers, διάρκεια και διαθεσιμότητα streaming, το CinemaGuide βοηθά τους λάτρεις του σινεμά να κάνουν γρήγορες και σωστές επιλογές.</p><p>Χρησιμοποιούμε τις κορυφαίες δημόσιες βάσεις δεδομένων, όπως το TMDB, για να διασφαλίζουμε πάντα έγκυρες και ενημερωμένες πληροφορίες.</p>"
-        },
-        privacy: {
-          title: "Πολιτική Απορρήτου",
-          content: "<p>Στο CinemaGuide σεβόμαστε απόλυτα τα προσωπικά σας δεδομένα. Η παρούσα πολιτική περιγράφει τον τρόπο διαχείρισης των δεδομένων στον ιστότοπό μας.</p><h3>Συλλογή Δεδομένων</h3><p>Το CinemaGuide δεν απαιτεί εγγραφή ή δημιουργία προσωπικού λογαριασμού. Δεν συλλέγουμε και δεν αποθηκεύουμε προσωπικά στοιχεία ταυτοποίησης (PII) στους διακομιστές μας.</p><h3>Cookies & Analytics</h3><p>Ενδέχεται να χρησιμοποιούμε εργαλεία ανάλυσης επισκεψιμότητας ή συνδέσμους συνεργατών (affiliate) για τη βελτιστοποίηση της εμπειρίας πλοήγησης. Αυτά τα εργαλεία μπορεί να τοποθετήσουν μικρά αρχεία (cookies) στον περιηγητή σας.</p><h3>Ιστότοποι Τρίτων</h3><p>Η πλατφόρμα μας περιέχει συνδέσμους προς εξωτερικές υπηρεσίες streaming και συνεργάτες. Το CinemaGuide δεν φέρει ευθύνη για τις πολιτικές απορρήτου ή το περιεχόμενο εξωτερικών ιστοσελίδων.</p>"
-        },
-        terms: {
-          title: "Όροι Χρήσης",
-          content: "<p>Με την πρόσβαση και τη χρήση του CinemaGuide, συμφωνείτε με τους ακόλουθους όρους και προϋποθέσεις.</p><h3>Χρήση Περιεχομένου</h3><p>Όλα τα κείμενα, τα γραφικά και η δομή του ιστοτόπου αποτελούν ιδιοκτησία του CinemaGuide. Τα μεταδεδομένα ταινιών, οι αφίσες και οι εικόνες των ηθοποιών παρέχονται μέσω του TMDB API σύμφωνα με τους όρους χρήσης τους.</p><h3>Αποποίηση Ευθύνης</h3><p>Οι υπηρεσίες παρέχονται 'ως έχουν'. Παρότι καταβάλλουμε κάθε δυνατή προσπάθεια για την ακρίβεια των στοιχείων, δεν εγγυόμαστε ότι όλες οι πληροφορίες διαθεσιμότητας streaming ή διάρκειας είναι απόλυτα απαλλαγμένες από σφάλματα.</p>"
-        },
-        affiliate: {
-          title: "Δήλωση Συνεργατών (Affiliate Disclosure)",
-          content: "<p>Το CinemaGuide συμμετέχει σε προγράμματα συνεργατών (affiliate marketing) που επιτρέπουν την εξασφάλιση προμηθειών μέσω συνδέσμων προς εμπορικές πλατφόρμες.</p><p>Όταν κάνετε κλικ σε συνδέσμους προς υπηρεσίες όπως το Amazon Prime Video, το NordVPN ή άλλους συνεργάτες και προβαίνετε σε συνδρομή ή αγορά, το CinemaGuide ενδέχεται να λάβει μια μικρή προμήθεια, χωρίς καμία απολύτως επιπλέον επιβάρυνση για εσάς.</p><p>Αυτές οι συνεργασίες συντηρούν τη λειτουργία, τη φιλοξενία και τη συνεχή ανάπτυξη του CinemaGuide, διατηρώντας το δωρεάν για όλους τους χρήστες.</p>"
-        },
-        contact: {
-          title: "Επικοινωνία",
-          content: "<p>Έχετε ερωτήσεις, προτάσεις ή επιχειρηματικές προτάσεις; Θα χαρούμε να επικοινωνήσετε μαζί μας.</p><p>Μπορείτε να στείλετε email απευθείας στην ομάδα διαχείρισης:</p><p><strong>Email:</strong> cinemaguide.online@gmail.com</p><p>Απαντάμε σε όλα τα αιτήματα εντός 24–48 εργάσιμων ωρών.</p>"
-        }
+        about: { title: "Σχετικά με το CinemaGuide", content: "<p>Καλώς ήρθατε στο CinemaGuide, τον κορυφαίο ψηφιακό προορισμό για την ανακάλυψη ταινιών, επιλογών streaming και κινηματογραφικών πληροφοριών.</p><p>Αποστολή μας είναι να διευκολύνουμε την απόφασή σας για το τι θα παρακολουθήσετε. Συγκεντρώνοντας αναλυτικές λεπτομέρειες, όπως ηθοποιούς, επίσημα trailers, διάρκεια και διαθεσιμότητα streaming, το CinemaGuide βοηθά τους λάτρεις του σινεμά να κάνουν γρήγορες και σωστές επιλογές.</p><p>Χρησιμοποιούμε τις κορυφαίες δημόσιες βάσεις δεδομένων, όπως το TMDB, για να διασφαλίζουμε πάντα έγκυρες και ενημερωμένες πληροφορίες.</p>" },
+        privacy: { title: "Πολιτική Απορρήτου", content: "<p>Στο CinemaGuide σεβόμαστε απόλυτα τα προσωπικά σας δεδομένα. Η παρούσα πολιτική περιγράφει τον τρόπο διαχείρισης των δεδομένων στον ιστότοπό μας.</p><h3>Συλλογή Δεδομένων</h3><p>Το CinemaGuide δεν απαιτεί εγγραφή ή δημιουργία προσωπικού λογαριασμού. Δεν συλλέγουμε και δεν αποθηκεύουμε προσωπικά στοιχεία ταυτοποίησης (PII) στους διακομιστές μας.</p><h3>Cookies & Analytics</h3><p>Ενδέχεται να χρησιμοποιούμε εργαλεία ανάλυσης επισκεψιμότητας ή συνδέσμους συνεργατών (affiliate) για τη βελτιστοποίηση της εμπειρίας πλοήγησης. Αυτά τα εργαλεία μπορεί να τοποθετήσουν μικρά αρχεία (cookies) στον περιηγητή σας.</p><h3>Ιστότοποι Τρίτων</h3><p>Η πλατφόρμα μας περιέχει συνδέσμους προς εξωτερικές υπηρεσίες streaming και συνεργάτες. Το CinemaGuide δεν φέρει ευθύνη για τις πολιτικές απορρήτου ή το περιεχόμενο εξωτερικών ιστοσελίδων.</p>" },
+        terms: { title: "Όροι Χρήσης", content: "<p>Με την πρόσβαση και τη χρήση του CinemaGuide, συμφωνείτε με τους ακόλουθους όρους και προϋποθέσεις.</p><h3>Χρήση Περιεχομένου</h3><p>Όλα τα κείμενα, τα γραφικά και η δομή του ιστοτόπου αποτελούν ιδιοκτησία του CinemaGuide. Τα μεταδεδομένα ταινιών, οι αφίσες και οι εικόνες των ηθοποιών παρέχονται μέσω του TMDB API σύμφωνα με τους όρους χρήσης τους.</p><h3>Αποποίηση Ευθύνης</h3><p>Οι υπηρεσίες παρέχονται 'ως έχουν'. Παρότι καταβάλλουμε κάθε δυνατή προσπάθεια για την ακρίβεια των στοιχείων, δεν εγγυόμαστε ότι όλες οι πληροφορίες διαθεσιμότητας streaming ή διάρκειας είναι απόλυτα απαλλαγμένες από σφάλματα.</p>" },
+        affiliate: { title: "Δήλωση Συνεργατών (Affiliate Disclosure)", content: "<p>Το CinemaGuide συμμετέχει σε προγράμματα συνεργατών (affiliate marketing) που επιτρέπουν την εξασφάλιση προμηθειών μέσω συνδέσμων προς εμπορικές πλατφόρμες.</p><p>Όταν κάνετε κλικ σε συνδέσμους προς υπηρεσίες όπως το Amazon Prime Video, το NordVPN ή άλλους συνεργάτες και προβαίνετε σε συνδρομή ή αγορά, το CinemaGuide ενδέχεται να λάβει μια μικρή προμήθεια, χωρίς καμία απολύτως επιπλέον επιβάρυνση για εσάς.</p><p>Αυτές οι συνεργασίες συντηρούν τη λειτουργία, τη φιλοξενία και τη συνεχή ανάπτυξη του CinemaGuide, διατηρώντας το δωρεάν για όλους τους χρήστες.</p>" },
+        contact: { title: "Επικοινωνία", content: "<p>Έχετε ερωτήσεις, προτάσεις ή επιχειρηματικές προτάσεις; Θα χαρούμε να επικοινωνήσετε μαζί μας.</p><p>Μπορείτε να στείλετε email απευθείας στην ομάδα διαχείρισης:</p><p><strong>Email:</strong> cinemaguide.online@gmail.com</p><p>Απαντάμε σε όλα τα αιτήματα εντός 24–48 εργάσιμων ωρών.</p>" }
       }
     }
   };
@@ -535,7 +495,6 @@
         genres = data.genres || [];
         renderGenres();
         
-        // Reload based on search input or active genre or trending
         const query = $('navSearchInput').value.trim();
         if (query) {
           performSearch(query);
@@ -728,7 +687,6 @@
     overlay.querySelector('.modal-close').addEventListener('click', () => overlay.remove());
     root.appendChild(overlay);
 
-    // Fetch Details (Runtime)
     fetch(`https://api.themoviedb.org/3/movie/${m.id}?api_key=${API_KEY}&language=${getApiLangParam()}`)
       .then(r => r.json())
       .then(data => {
@@ -742,7 +700,6 @@
         if(runtimeSpan) runtimeSpan.innerHTML = `⏱ —`;
       });
 
-    // Fetch Cast 
     fetch(`https://api.themoviedb.org/3/movie/${m.id}/credits?api_key=${API_KEY}&language=${getApiLangParam()}`)
       .then(r => r.json())
       .then(data => {
@@ -778,7 +735,6 @@
         if(castArea) castArea.innerHTML = `<div style="color:var(--smoke); font-size:13px;">${t.errCast}</div>`;
       });
 
-    // Fetch Trailer
     fetch(`https://api.themoviedb.org/3/movie/${m.id}/videos?api_key=${API_KEY}&language=${getApiLangParam()}`)
       .then(r => r.json())
       .then(data => {
@@ -786,7 +742,6 @@
         let videos = data.results || [];
         let trailer = videos.find(v => v.site === 'YouTube' && v.type === 'Trailer');
 
-        // Fallback to English trailer if missing in Greek
         if (!trailer && currentLang === 'el') {
           fetch(`https://api.themoviedb.org/3/movie/${m.id}/videos?api_key=${API_KEY}&language=en-US`)
             .then(r => r.json())
