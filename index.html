@@ -262,6 +262,31 @@
     transform: translateY(-2px);
   }
 
+  /* Gruv Affiliate Button Styling */
+  .gruv-affiliate-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #1a191d;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+  }
+  .gruv-affiliate-btn:hover {
+    background-color: var(--gold);
+    color: var(--void);
+    transform: translateY(-2px);
+  }
+
   .modal-section{margin-top:28px; padding-top:20px; border-top:1px solid var(--line);}
   .modal-section-title{font-size:20px; color:var(--gold); margin-bottom:16px;}
 
@@ -396,6 +421,7 @@
       noOverview: "No overview available.",
       watchPrimeBtn: "🍿 WATCH ON PRIME VIDEO",
       watchNordBtn: "🔒 UNLOCK ANYWHERE WITH NORDVPN",
+      watchGruvBtn: "🎬 Own the Movie on Blu-ray & 4K →",
       castTitle: "CAST",
       loadingCast: "Loading cast...",
       noCast: "No cast information available.",
@@ -427,7 +453,7 @@
         },
         affiliate: {
           title: "Affiliate Disclosure",
-          content: "<p>CinemaGuide participates in various affiliate marketing programs designed to provide a means for websites to earn referral fees by linking to commercial services.</p><p>When you click on links to services such as Amazon Prime Video, NordVPN, Aurzen or other partner platforms and make a purchase or subscription, CinemaGuide may earn an affiliate commission at no additional cost to you.</p><p>These partnerships support the continuous development, maintenance, and hosting of CinemaGuide, ensuring our platform remains free for all users.</p>"
+          content: "<p>CinemaGuide participates in various affiliate marketing programs designed to provide a means for websites to earn referral fees by linking to commercial services.</p><p>When you click on links to services such as Amazon Prime Video, NordVPN, Gruv, Aurzen or other partner platforms and make a purchase or subscription, CinemaGuide may earn an affiliate commission at no additional cost to you.</p><p>These partnerships support the continuous development, maintenance, and hosting of CinemaGuide, ensuring our platform remains free for all users.</p>"
         },
         contact: {
           title: "Contact Us",
@@ -457,6 +483,7 @@
       noOverview: "Δεν υπάρχει διαθέσιμη περίληψη.",
       watchPrimeBtn: "🍿 ΔΕΣ ΤΟ ΣΤΟ PRIME VIDEO",
       watchNordBtn: "🔒 ΞΕΚΛΕΙΔΩΣΕ ΤΟ ΠΑΝΤΟΥ ΜΕ NORDVPN",
+      watchGruvBtn: "🎬 Own the Movie on Blu-ray & 4K →",
       castTitle: "ΗΘΟΠΟΙΟΙ / CAST",
       loadingCast: "Φόρτωση ηθοποιών...",
       noCast: "Δεν βρέθηκαν πληροφορίες ηθοποιών.",
@@ -488,7 +515,7 @@
         },
         affiliate: {
           title: "Δήλωση Συνεργατών (Affiliate Disclosure)",
-          content: "<p>Το CinemaGuide συμμετέχει σε προγράμματα συνεργατών (affiliate marketing) που επιτρέπουν την εξασφάλιση προμηθειών μέσω συνδέσμων προς εμπορικές πλατφόρμες.</p><p>Όταν κάνετε κλικ σε συνδέσμους προς υπηρεσίες όπως το Amazon Prime Video, το NordVPN, την Aurzen ή άλλους συνεργάτες και προβαίνετε σε συνδρομή ή αγορά, το CinemaGuide ενδέχεται να λάβει μια μικρή προμήθεια, χωρίς καμία απολύτως επιπλέον επιβάρυνση για εσάς.</p><p>Αυτές οι συνεργασίες συντηρούν τη λειτουργία, τη φιλοξενία και τη συνεχή ανάπτυξη του CinemaGuide, διατηρώντας το δωρεάν για όλους τους χρήστες.</p>"
+          content: "<p>Το CinemaGuide συμμετέχει σε προγράμματα συνεργατών (affiliate marketing) που επιτρέπουν την εξασφάλιση προμηθειών μέσω συνδέσμων προς εμπορικές πλατφόρμες.</p><p>Όταν κάνετε κλικ σε συνδέσμους προς υπηρεσίες όπως το Amazon Prime Video, το NordVPN, την Gruv, την Aurzen ή άλλους συνεργάτες και προβαίνετε σε συνδρομή ή αγορά, το CinemaGuide ενδέχεται να λάβει μια μικρή προμήθεια, χωρίς καμία απολύτως επιπλέον επιβάρυνση για εσάς.</p><p>Αυτές οι συνεργασίες συντηρούν τη λειτουργία, τη φιλοξενία και τη συνεχή ανάπτυξη του CinemaGuide, διατηρώντας το δωρεάν για όλους τους χρήστες.</p>"
         },
         contact: {
           title: "Επικοινωνία",
@@ -737,6 +764,9 @@
               </a>
               <a href="https://www.anrdoezrs.net/click-101858026-17310927" target="_blank" rel="noopener noreferrer sponsored" class="nordvpn-affiliate-btn">
                 ${t.watchNordBtn}
+              </a>
+              <a href="https://www.kqzyfj.com/click-101858026-15735954" target="_blank" rel="noopener noreferrer sponsored" class="gruv-affiliate-btn">
+                ${t.watchGruvBtn}
               </a>
             </div>
 
